@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VelumPrismic - Minecraft Developer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+<body class="minecraft-theme">
+    <div class="particles-container" id="particles-js"></div>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1 class="minecraft-font">VelumPrismic</h1>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="#home" class="minecraft-font">Home</a></li>
+                    <li><a href="#about" class="minecraft-font">About</a></li>
+                    <li><a href="#projects" class="minecraft-font">Projects</a></li>
+                    <li><a href="#skills" class="minecraft-font">Skills</a></li>
+                </ul>
+            </div>
+            <div class="contact-icons"> 
+                <a href="https://discord.com/users/VelumPrismic#1234" title="Discord" target="_blank"><i class="fab fa-discord"></i></a>
+                <a href="https://github.com/VelumPrismic" title="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+            <div class="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="minecraft-font">VelumPrismic</h1>
+            <h2 class="minecraft-font">Minecraft Developer</h2>
+            <p>Specializing in Skript & Java Development</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn primary-btn minecraft-btn">View Projects</a>
+                <a href="https://discord.com/users/velumprismic" class="btn secondary-btn minecraft-btn" target="_blank">Message Me</a>
+            </div>
+            <div class="social-links">
+                <a href="mailto:contact@velumprismic.dev" class="social-link"><i class="fas fa-envelope"></i></a>
+                <a href="https://discord.com/users/velumprismic" class="social-link" target="_blank"><i class="fab fa-discord"></i></a>
+                <a href="https://github.com/VelumPrismic" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="minecraft-3d-container">
+                <img src="images/minecraft-character.png" alt="Minecraft Character" class="minecraft-3d-element">
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="section-header">
+            <h2 class="minecraft-font">About Me</h2>
+            <div class="divider minecraft-divider"></div>
+        </div>
+        <div class="about-content">
+            <div class="about-image">
+                <div class="minecraft-3d-container">
+                    <img src="images/developer-avatar.jpg" alt="VelumPrismic" class="minecraft-3d-element">
+                </div>
+            </div>
+            <div class="about-text">
+                <h3 class="minecraft-font">Who is VelumPrismic?</h3>
+                <p>I'm a passionate Minecraft developer with expertise in both Skript and Java. With around 3 years of experience in creating custom plugins, and server mechanics.</p>
+                <p>I first started as a server admin then, I discovered my passion for customizing gameplay. This led me to learn Skript for testing and to learn the basics. Eventually I learned Java for more opportunites like making Mods or Plugins.</p>
+                <div class="about-stats">
+                    <div class="stat minecraft-block">
+                        <h4 class="minecraft-font">3+</h4>
+                        <p>Years Experience</p>
+                    </div>
+                    <div class="stat minecraft-block">
+                        <h4 class="minecraft-font">10+</h4>
+                        <p>Projects Completed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="section-header">
+            <h2 class="minecraft-font">My Projects</h2>
+            <div class="divider minecraft-divider"></div>
+        </div>
+        <div class="project-filters">
+            <button class="filter-btn active minecraft-btn" data-filter="all">All</button>
+            <button class="filter-btn minecraft-btn" data-filter="skript">Skript</button>
+            <button class="filter-btn minecraft-btn" data-filter="java">Java</button>
+        </div>
+        <div class="projects-grid">
+            <!-- Project cards will be dynamically populated via JavaScript -->
+        </div>
+    </section>
+
+    <section id="skills" class="skills">
+        <div class="section-header">
+            <h2 class="minecraft-font">Skills & Expertise</h2>
+            <div class="divider minecraft-divider"></div>
+        </div>
+        <div class="skills-content">
+            <div class="skill-category">
+                <h3 class="minecraft-font">Programming Languages</h3>
+                <div class="skill-items">
+                    <div class="skill-item minecraft-block">
+                        <div class="skill-icon"><i class="fab fa-java"></i></div>
+                        <h4 class="minecraft-font">Java</h4>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item minecraft-block">
+                        <div class="skill-icon"><i class="fas fa-scroll"></i></div>
+                        <h4 class="minecraft-font">Skript</h4>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item minecraft-block">
+                        <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                        <h4 class="minecraft-font">HTML/CSS</h4>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item minecraft-block">
+                        <div class="skill-icon"><i class="fab fa-js"></i></div>
+                        <h4 class="minecraft-font">JavaScript</h4>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3 class="minecraft-font">Minecraft Development</h3>
+                <div class="skill-items">
+                    <div class="skill-item minecraft-block">
+                        <div class="skill-icon"><i class="fas fa-plug"></i></div>
+                        <h4 class="minecraft-font">Plugin Development</h4>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item minecraft-block">
+                        <div class="skill-icon"><i class="fas fa-server"></i></div>
+                        <h4 class="minecraft-font">Server Management</h4>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item minecraft-block">
+                        <div class="skill-icon"><i class="fas fa-gamepad"></i></div>
+                        <h4 class="minecraft-font">Game Mode Creation</h4>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item minecraft-block">
+                        <div class="skill-icon"><i class="fas fa-code-branch"></i></div>
+                        <h4 class="minecraft-font">API Integration</h4>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contact-banner minecraft-banner">
+            <h3 class="minecraft-font">Interested in working together?</h3>
+            <div class="contact-options">
+                <a href="https://discord.com/users/VelumPrismic#1234" class="contact-option minecraft-btn" target="_blank">
+                    <i class="fab fa-discord"></i>
+                    <span>velumprismic</span>
+                </a>
+                <a href="https://github.com/VelumPrismic" class="contact-option minecraft-btn" target="_blank">
+                    <i class="fab fa-github"></i>
+                    <span>github.com/VelumPrismic</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
