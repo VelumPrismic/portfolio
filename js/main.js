@@ -24,9 +24,9 @@ const projectsData = [
             { text: "Demo", url: "#" }
         ],
         media: [
-            { type: "video", url: "videos/fishing-sim/rod-effects.mp4", caption: "Fishing Rod Effects (A bit annoying)" },
-            { type: "video", url: "videos/fishing-sim/fish-dex.mp4", caption: "Fishing Index Showcase" },
-            { type: "video", url: "videos/fishing-sim/gear.mp4", caption: "Fishing Gear Showcase" }
+            { type: "streamable", url: "https://streamable.com/61e6ce", caption: "Fishing Rod Effects - Showcases 2 effects, one for the Mythic Rod rairty and one for the Legendary Rod rarity." },
+            { type: "streamable", url: "https://streamable.com/d13zl1", caption: "Fishing Index Showcase" },
+            { type: "streamable", url: "https://streamable.com/j6dd0d", caption: "Fishing Gear Showcase" }
         ]
     },
     {
@@ -39,7 +39,7 @@ const projectsData = [
             { text: "Demo", url: "#" }
         ],
         media: [
-            { type: "video", url: "videos/loot-crates/lootcrates.mp4", caption: "Loot Crate Showcase" }
+            { type: "streamable", url: "https://streamable.com/264q9d", caption: "Loot Crate Showcase" }
         ]
     },
     {
@@ -47,7 +47,7 @@ const projectsData = [
         title: "Portfolio Website",
         category: "web",
         image: 'images/thumbnails/portfolio-thumbnail.png',
-        description: "Add items into your crate and when right clicked, shoots out the items that was input into the crate.",
+        description: "The website you're currently on!",
         links: [
             { text: "Demo", url: "#" }
         ],
