@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initStickyHeader();
     addMinecraftSounds();
     init3DHoverEffects();
+    addDiscordAlerts();
 });
 
 function initParticles() {
@@ -221,23 +222,17 @@ function initImageZoom() {
     
     zoomableImages.forEach(img => {
         img.addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent triggering parent elements
-            
-            // Don't open the zoom modal if this image is in a project card
-            // and we have the media carousel available
+            e.stopPropagation();
             const projectCard = img.closest('.project-card');
             if (projectCard) {
                 const projectId = parseInt(projectCard.querySelector('.show-media-btn')?.dataset.project);
                 if (projectId) {
-                    // This image is in a project card with media, don't use the zoom modal
                     return;
                 }
             }
             
             modalImage.src = this.src;
             imageModal.style.display = 'flex';
-            
-            // Play sound if available
             if (typeof playSound === 'function') {
                 playSound('click');
             }
@@ -246,8 +241,6 @@ function initImageZoom() {
     
     imageModal.addEventListener('click', function() {
         this.style.display = 'none';
-        
-        // Play sound if available
         if (typeof playSound === 'function') {
             playSound('click');
         }
@@ -255,7 +248,6 @@ function initImageZoom() {
 }
 
 function initMediaCarousel() {
-    // Create modal for media carousel
     const existingModal = document.querySelector('.media-modal');
     if (existingModal) {
         existingModal.remove();
@@ -275,8 +267,6 @@ function initMediaCarousel() {
         </div>
     `;
     document.body.appendChild(mediaModal);
-    
-    // Set up event listeners
     const showMediaBtns = document.querySelectorAll('.show-media-btn');
     const mediaPrev = mediaModal.querySelector('.media-prev');
     const mediaNext = mediaModal.querySelector('.media-next');
@@ -294,8 +284,6 @@ function initMediaCarousel() {
         currentMediaIndex = index;
         updateMediaDisplay();
         mediaModal.style.display = 'flex';
-        
-        // Play sound if available
         if (typeof playSound === 'function') {
             playSound('click');
         }
@@ -322,27 +310,19 @@ function initMediaCarousel() {
             video.appendChild(source);
             mediaContainer.appendChild(video);
         } else if (media.type === 'streamable') {
-            // Extract the video ID from the Streamable URL
             let videoId = media.url;
-            
-            // Handle different Streamable URL formats
             if (media.url.includes('streamable.com/')) {
-                // Extract the ID from the URL
                 const matches = media.url.match(/streamable\.com\/(?:e\/)?([a-zA-Z0-9]+)/);
                 if (matches && matches[1]) {
                     videoId = matches[1];
                 }
             }
-            
-            // Create iframe for Streamable embed
             const iframe = document.createElement('iframe');
             iframe.src = `https://streamable.com/e/${videoId}`;
             iframe.width = '100%';
             iframe.height = '100%';
             iframe.frameBorder = '0';
             iframe.allowFullscreen = true;
-            
-            // Create a container for the iframe to control aspect ratio
             const iframeContainer = document.createElement('div');
             iframeContainer.className = 'streamable-container';
             iframeContainer.appendChild(iframe);
@@ -352,8 +332,6 @@ function initMediaCarousel() {
         
         mediaCaption.textContent = media.caption || '';
         mediaCounter.textContent = `${currentMediaIndex + 1} / ${currentProject.media.length}`;
-        
-        // Show/hide navigation buttons based on media count
         if (currentProject.media.length <= 1) {
             mediaPrev.style.display = 'none';
             mediaNext.style.display = 'none';
@@ -377,8 +355,6 @@ function initMediaCarousel() {
         
         currentMediaIndex = (currentMediaIndex - 1 + currentProject.media.length) % currentProject.media.length;
         updateMediaDisplay();
-        
-        // Play sound if available
         if (typeof playSound === 'function') {
             playSound('click');
         }
@@ -389,32 +365,26 @@ function initMediaCarousel() {
         
         currentMediaIndex = (currentMediaIndex + 1) % currentProject.media.length;
         updateMediaDisplay();
-        
-        // Play sound if available
+
         if (typeof playSound === 'function') {
             playSound('click');
         }
     });
     
-    // Close on background click
     mediaModal.addEventListener('click', function(e) {
         if (e.target === mediaModal) {
             mediaModal.style.display = 'none';
-            
-            // Pause any videos when closing
+      
             const videos = mediaContainer.querySelectorAll('video');
             videos.forEach(video => video.pause());
         }
     });
     
-    // Keyboard navigation
     document.addEventListener('keydown', function(e) {
         if (mediaModal.style.display !== 'flex') return;
         
         if (e.key === 'Escape') {
             mediaModal.style.display = 'none';
-            
-            // Pause any videos when closing
             const videos = mediaContainer.querySelectorAll('video');
             videos.forEach(video => video.pause());
         } else if (e.key === 'ArrowLeft') {
@@ -537,6 +507,47 @@ function addMinecraftSounds() {
     };
 }
 
+function addDiscordAlerts() {
+    const discordLinks = document.querySelectorAll('a[href*="discord.com"], a[href*="discord"] .fa-discord, .contact-option .fa-discord');
+    const discordNotification = document.getElementById('discordNotification');
+    const closeDiscordNotification = document.getElementById('closeDiscordNotification');
+    
+    function showDiscordNotification() {
+        playSound('click');
+        discordNotification.classList.remove('hide');
+        discordNotification.style.display = 'block';
+        setTimeout(() => {
+            discordNotification.classList.add('show');
+        }, 10);
+    }
+
+    function hideDiscordNotification() {
+        discordNotification.classList.remove('show');
+        discordNotification.classList.add('hide');
+    
+        setTimeout(() => {
+            discordNotification.style.display = 'none';
+
+            discordNotification.classList.remove('hide');
+        }, 300);
+    }
+
+    discordLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            showDiscordNotification();
+        });
+    });
+    closeDiscordNotification.addEventListener('click', hideDiscordNotification);
+    document.addEventListener('click', function(e) {
+        if (discordNotification.style.display === 'block' && 
+            !discordNotification.contains(e.target) && 
+            !Array.from(discordLinks).some(link => link === e.target || link.contains(e.target))) {
+            hideDiscordNotification();
+        }
+    });
+}
+
 function init3DHoverEffects() {
     const cards = document.querySelectorAll('.minecraft-block');
     
@@ -596,214 +607,3 @@ if (heroTitle) {
     setTimeout(typeWriter, 500);
 }
 document.body.style.cursor = 'url(https://cur.cursors-4u.net/games/gam-11/gam1089.cur), auto';
-
-// Helper function to create demo pages
-function createDemoPage(project) {
-    return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${project.title} Demo - VelumPrismic</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <style>
-        .demo-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            background-color: rgba(0, 0, 0, 0.6);
-            border: 4px solid;
-            border-color: #444 #222 #222 #444;
-        }
-        
-        .demo-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        .demo-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-        
-        .demo-section {
-            background-color: var(--stone-gray);
-            border: 4px solid;
-            border-color: #a0a0a0 #505050 #505050 #a0a0a0;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .demo-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .demo-gallery img {
-            width: 100%;
-            height: auto;
-            border: 3px solid;
-            border-color: #a0a0a0 #505050 #505050 #a0a0a0;
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .demo-gallery img:hover {
-            transform: scale(1.05);
-        }
-        
-        .feature-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        
-        .feature-list li {
-            padding: 0.5rem 0;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-        }
-        
-        .feature-list li:before {
-            content: "▶";
-            color: var(--diamond-blue);
-            margin-right: 10px;
-        }
-        
-        .back-btn {
-            display: inline-block;
-            margin-top: 2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .demo-content {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body class="minecraft-theme">
-    <div class="particles-container" id="particles-js"></div>
-    
-    <header>
-        <nav>
-            <div class="logo">
-                <h1 class="minecraft-font">VelumPrismic</h1>
-            </div>
-            <div class="nav-links">
-                <ul>
-                    <li><a href="../index.html#home" class="minecraft-font">Home</a></li>
-                    <li><a href="../index.html#about" class="minecraft-font">About</a></li>
-                    <li><a href="../index.html#projects" class="minecraft-font">Projects</a></li>
-                    <li><a href="../index.html#skills" class="minecraft-font">Skills</a></li>
-                </ul>
-            </div>
-            <div class="contact-icons"> 
-                <a href="https://discord.com/users/velumprismic" title="Discord" target="_blank"><i class="fab fa-discord"></i></a>
-                <a href="https://github.com/VelumPrismic" title="GitHub" target="_blank"><i class="fab fa-github"></i></a>
-            </div>
-            <div class="hamburger">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-        </nav>
-    </header>
-
-    <main class="demo-container">
-        <div class="demo-header">
-            <h1 class="minecraft-font">${project.title} Demo</h1>
-            <p>${project.description}</p>
-        </div>
-        
-        <div class="demo-content">
-            <div class="demo-section">
-                <h2 class="minecraft-font">Features</h2>
-                <ul class="feature-list">
-                    <li>Feature 1</li>
-                    <li>Feature 2</li>
-                    <li>Feature 3</li>
-                    <li>Feature 4</li>
-                </ul>
-            </div>
-            
-            <div class="demo-section">
-                <h2 class="minecraft-font">Technical Details</h2>
-                <p>This project is built using ${project.category === 'java' ? 'Java' : 'Skript'} for Minecraft servers.</p>
-                
-                <h3 class="minecraft-font">Implementation Highlights</h3>
-                <ul class="feature-list">
-                    <li>Implementation detail 1</li>
-                    <li>Implementation detail 2</li>
-                    <li>Implementation detail 3</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="demo-section">
-            <h2 class="minecraft-font">Gallery</h2>
-            <div class="demo-gallery">
-                <img src="${project.image}" alt="${project.title}" class="zoomable-img">
-                <!-- Add more images as needed -->
-            </div>
-        </div>
-        
-        <a href="../index.html#projects" class="minecraft-btn back-btn">Back to Projects</a>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof particlesJS !== 'undefined') {
-                particlesJS('particles-js', {
-                    particles: {
-                        number: { value: 50, density: { enable: true, value_area: 800 } },
-                        color: { value: "#ffffff" },
-                        shape: { type: "square", stroke: { width: 0, color: "#000000" } },
-                        opacity: { value: 0.5, random: true },
-                        size: { value: 4, random: true },
-                        line_linked: { enable: false },
-                        move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out" }
-                    }
-                });
-            }
-            
-            const modal = document.createElement('div');
-            modal.classList.add('image-modal');
-            modal.innerHTML = '<div class="modal-content"><img class="modal-image"></div>';
-            document.body.appendChild(modal);
-
-            const zoomableImages = document.querySelectorAll('.zoomable-img');
-            const modalImage = modal.querySelector('.modal-image');
-            
-            zoomableImages.forEach(img => {
-                img.style.cursor = 'pointer';
-                img.addEventListener('click', function() {
-                    modal.style.display = 'flex';
-                    modalImage.src = this.src;
-                });
-            });
-            
-            modal.addEventListener('click', function() {
-                modal.style.display = 'none';
-            });
-            
-            const hamburger = document.querySelector('.hamburger');
-            const navLinks = document.querySelector('.nav-links');
-            
-            hamburger.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-                hamburger.classList.toggle('active');
-            });
-        });
-    </script>
-</body>
-</html>`;
-}

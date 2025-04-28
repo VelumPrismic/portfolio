@@ -1,4 +1,3 @@
-/* Global Styles */
 :root {
     --primary-color: #4CAF50;
     --secondary-color: #2E7D32;
@@ -9,7 +8,6 @@
     --minecraft-font: 'VT323', monospace;
     --body-font: 'VT323', monospace;
     
-    /* Minecraft colors */
     --dirt-brown: #866043;
     --grass-green: #5D9C40;
     --stone-gray: #828282;
@@ -46,7 +44,6 @@ body {
     font-weight: normal;
 }
 
-/* Selection styling */
 ::selection {
     background-color: var(--selection-bg);
     color: var(--selection-text);
@@ -59,7 +56,6 @@ body {
     text-shadow: 1px 1px 0 #000;
 }
 
-/* Improve text readability */
 p, span, a, li, h1, h2, h3, h4, h5, h6 {
     transition: color 0.3s ease;
 }
@@ -162,7 +158,6 @@ a:hover, button:hover {
                 inset 2px 2px 0px 0px rgba(255, 255, 255, 0.2);
 }
 
-/* Particles container */
 .particles-container {
     position: fixed;
     top: 0;
@@ -257,7 +252,6 @@ section::before {
     z-index: -1;
 }
 
-/* Header & Navigation */
 header {
     position: fixed;
     top: 0;
@@ -318,7 +312,6 @@ nav {
     width: 100%;
 }
 
-/* Contact Icons in Nav */
 .contact-icons {
     display: flex;
     gap: 1rem;
@@ -348,7 +341,6 @@ nav {
     transition: all 0.3s ease;
 }
 
-/* Hero Section */
 .hero {
     height: 100vh;
     display: flex;
@@ -430,7 +422,6 @@ nav {
     transform: scale(1.1);
 }
 
-/* Social Links in Hero */
 .social-links {
     display: flex;
     gap: 1rem;
@@ -469,7 +460,6 @@ nav {
     }
 }
 
-/* About Section */
 .about {
     background-color: transparent;
 }
@@ -550,7 +540,6 @@ nav {
     margin-bottom: 0;
 }
 
-/* Projects Section */
 .projects {
     background-color: transparent;
 }
@@ -701,7 +690,6 @@ nav {
     background-color: #FF9999;
 }
 
-/* Skills Section */
 .skills {
     background-color: transparent;
 }
@@ -781,7 +769,6 @@ nav {
     border-radius: 0;
 }
 
-/* Contact Banner */
 .contact-banner {
     background-color: var(--obsidian-purple);
     color: white;
@@ -828,12 +815,10 @@ nav {
     font-size: 1.5rem;
 }
 
-/* Headings */
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
     .about-content {
         flex-direction: column;
@@ -969,50 +954,114 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-/* Image Modal - Keep for backward compatibility */
-.image-modal {
+.discord-notification {
     display: none;
     position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(3px);
-    cursor: pointer;
-}
-
-.modal-content {
-    position: relative;
-    max-width: 90%;
-    max-height: 90%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    z-index: 1100;
+    background-color: #36393f;
     border: 4px solid;
     border-color: #a0a0a0 #505050 #505050 #a0a0a0;
-    box-shadow: 0 0 20px rgba(85, 255, 255, 0.5);
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-.modal-image {
-    display: block;
-    max-width: 100%;
-    max-height: 80vh;
-    image-rendering: auto;
+.discord-notification.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
-.zoomable-img {
-    transition: transform 0.3s ease, filter 0.3s ease;
+.discord-notification.hide {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
 }
 
-.zoomable-img:hover {
-    filter: brightness(1.1);
-    transform: scale(1.05);
+.discord-notification-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Media Modal */
+.discord-notification-icon {
+    font-size: 3rem;
+    color: #7289da;
+    margin-bottom: 15px;
+}
+
+.discord-notification-title {
+    font-family: var(--minecraft-font);
+    color: #ffffff;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.discord-notification-message {
+    font-family: var(--minecraft-font);
+    color: #dcddde;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.discord-notification-close {
+    font-family: var(--minecraft-font);
+    background-color: #7289da;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: 2px solid #000;
+    box-shadow: inset -2px -4px 0px 0px rgba(0, 0, 0, 0.6);
+    text-shadow: 2px 2px 0px #000;
+}
+
+.discord-notification-close:hover {
+    background-color: #5e78d5;
+}
+
+.discord-notification-close:active {
+    box-shadow: inset -1px -2px 0px 0px rgba(0, 0, 0, 0.6);
+    transform: translateY(2px);
+}
+
+@keyframes open-notification {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes close-notification {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}
+
+.discord-notification.show {
+    animation: open-notification 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+.discord-notification.hide {
+    animation: close-notification 0.3s ease-in forwards;
+}
+
 .media-modal {
     display: none;
     position: fixed;
@@ -1090,7 +1139,7 @@ h1, h2, h3, h4, h5, h6 {
 .streamable-container {
     width: 100%;
     height: 0;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 56.25%;
     position: relative;
     overflow: hidden;
 }
@@ -1144,7 +1193,6 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1rem;
 }
 
-/* Project Link Button */
 .show-media-btn {
     cursor: pointer;
     text-shadow: none;
@@ -1179,4 +1227,46 @@ h1, h2, h3, h4, h5, h6 {
     .media-caption {
         font-size: 1rem;
     }
+}
+
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(3px);
+    cursor: pointer;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    border: 4px solid;
+    border-color: #a0a0a0 #505050 #505050 #a0a0a0;
+    box-shadow: 0 0 20px rgba(85, 255, 255, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+}
+
+.modal-image {
+    display: block;
+    max-width: 100%;
+    max-height: 80vh;
+    image-rendering: auto;
+}
+
+.zoomable-img {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.zoomable-img:hover {
+    filter: brightness(1.1);
+    transform: scale(1.05);
 }
