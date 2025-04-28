@@ -31,6 +31,19 @@ const projectsData = [
     },
     {
         id: 3,
+        title: "Auction House",
+        category: "java",
+        image: 'images/thumbnails/auction-house-thumbnail.png',
+        description: "A plugin that allows players to sell and buy items in a virtual auction house.",
+        links: [
+            { text: "Demo", url: "#" }
+        ],
+        media: [
+            { type: "streamable", url: "https://streamable.com/eqpyw7", caption: "Auction House Showcase" }
+        ]
+    },
+    {
+        id: 4,
         title: "Loot Crates",
         category: "skript",
         image: 'images/thumbnails/loot-crate-thumbnail.png',
@@ -43,7 +56,7 @@ const projectsData = [
         ]
     },
     {
-        id: 4,
+        id: 5,
         title: "Portfolio Website",
         category: "web",
         image: 'images/thumbnails/portfolio-thumbnail.png',
@@ -54,7 +67,7 @@ const projectsData = [
         media: [
             { type: "image", url: "images/thumbnails/portfolio-thumbnail.png", caption: "Portfolio Showcase" }
         ]
-    },
+    },    
 ];
 
 const projectsGrid = document.querySelector('.projects-grid');
