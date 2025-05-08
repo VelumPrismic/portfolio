@@ -39,7 +39,7 @@ const projectsData = [
             { text: "Demo", url: "#" }
         ],
         media: [
-            { type: "streamable", url: "https://streamable.com/eqpyw7", caption: "Auction House Showcase" }
+            { type: "streamable", url: "https://streamable.com/eqpyw7", caption: "Auction House Showcase (The font is from a texture pack)" }
         ]
     },
     {
@@ -57,6 +57,19 @@ const projectsData = [
     },
     {
         id: 5,
+        title: "Bank System",
+        category: "java",
+        image: 'images/thumbnails/bank-system-thumbnail.png',
+        description: "A banking system to hold the coins of players. Complete with a interest system that gives players coins every hour.",
+        links: [
+            { text: "Demo", url: "#" }
+        ],
+        media: [
+            { type: "streamable", url: "https://streamable.com/39b9me", caption: "Banking System Showcase" }
+        ]
+    },
+    {
+        id: 6,
         title: "Portfolio Website",
         category: "web",
         image: 'images/thumbnails/portfolio-thumbnail.png',
@@ -68,6 +81,7 @@ const projectsData = [
             { type: "image", url: "images/thumbnails/portfolio-thumbnail.png", caption: "Portfolio Showcase" }
         ]
     },    
+
 ];
 
 const projectsGrid = document.querySelector('.projects-grid');
