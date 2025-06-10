@@ -1,36 +1,6 @@
 const projectsData = [
     {
         id: 1,
-        title: "Boss Attacks",
-        category: "java",
-        image: "images/thumbnails/boss-testing-thumbnail.png",
-        description: "Used to test out how particles work.",
-        links: [
-            { text: "Demo", url: "#" }
-        ],
-        media: [
-            { type: "youtube", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", caption: "Thunderstrike: Strikes the player with a bolt of lightning. Almost like a orbital beam." },
-            { type: "youtube", url: "https://www.youtube.com/embed/xvFZjo5PgG0", caption: "Cacoon: Removes the players ability to walk and strikes them with thunder." },
-            { type: "youtube", url: "https://www.youtube.com/embed/xvFZjo5PgG0", caption: "Forbidden Glyphs: Remove options from the player." }
-        ]
-    },
-    {
-        id: 2,
-        title: "Fishing Simulator",
-        category: "java",
-        image: 'images/thumbnails/fishing-simulator-thumbnail.png',
-        description: "Complete with an fishing index, cosmetic particles (when a fish is caught using a rod), buffs, rarities, and gears.",
-        links: [
-            { text: "Demo", url: "#" }
-        ],
-        media: [
-            { type: "youtube", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", caption: "Fishing Rod Effects - Showcases 2 effects, one for the Mythic Rod rairty and one for the Legendary Rod rarity." },
-            { type: "youtube", url: "https://www.youtube.com/embed/xvFZjo5PgG0", caption: "Fishing Index Showcase" },
-            { type: "youtube", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", caption: "Fishing Gear Showcase" }
-        ]
-    },
-    {
-        id: 3,
         title: "Auction House",
         category: "java",
         image: 'images/thumbnails/auction-house-thumbnail.png',
@@ -39,37 +9,77 @@ const projectsData = [
             { text: "Demo", url: "#" }
         ],
         media: [
-            { type: "youtube", url: "https://www.youtube.com/embed/xvFZjo5PgG0", caption: "Auction House Showcase (The font is from a texture pack)" }
+            { type: "youtube", url: "https://www.youtube.com/embed/_UFEEtPRjBY", caption: "Showcase" }
+        ]
+    },
+    {
+        id: 2,
+        title: "Bank System",
+        category: "java",
+        image: 'images/thumbnails/bank-system-thumbnail.png',
+        description: "A banking system to hold the coins of players. Complete with a interest system (and bank upgrades) that gives players coins every hour.",
+        links: [
+            { text: "Demo", url: "#" }
+        ],
+        media: [
+            { type: "youtube", url: "https://www.youtube.com/embed/F2RnfgDcTLU", caption: "Showcase" }
+        ]
+    },
+    {
+        id: 3,
+        title: "Particle Testing Plugin",
+        category: "java",
+        image: 'images/no-thumbnail.png',
+        description: "A plugin for particle testing (sound effects as well).",
+        links: [
+            { text: "Demo", url: "#" }
+        ],
+        media: [
+            { type: "youtube", url: "https://www.youtube.com/embed/z3AcDyZPXB4", caption: "Item Showcase" },
+            { type: "youtube", url: "https://www.youtube.com/embed/MoKtQ4IVk", caption: "Boss Attacks Showcase" },
         ]
     },
     {
         id: 4,
-        title: "Loot Crates",
-        category: "skript",
-        image: 'images/thumbnails/loot-crate-thumbnail.png',
-        description: "Add items into your crate and when right clicked, shoots out the items that was input into the crate.",
+        title: "Reset Map Plugin",
+        category: "java",
+        image: 'images/no-thumbnail.png',
+        description: "A plugin to reset worlds to the previous state.",
         links: [
             { text: "Demo", url: "#" }
         ],
         media: [
-            { type: "youtube", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", caption: "Loot Crate Showcase" }
+            { type: "youtube", url: "https://www.youtube.com/embed/9GxZOujKnuw", caption: "Showcase" }
         ]
     },
     {
         id: 5,
-        title: "Bank System",
+        title: "Minions Plugin",
         category: "java",
-        image: 'images/thumbnails/bank-system-thumbnail.png',
-        description: "A banking system to hold the coins of players. Complete with a interest system that gives players coins every hour.",
+        image: 'images/thumbnails/minions-thumbnail.png',
+        description: "A plugin that mimics Hypixel Skyblock Minion System. (More barebones and less polished)",
         links: [
             { text: "Demo", url: "#" }
         ],
         media: [
-            { type: "youtube", url: "https://www.youtube.com/embed/xvFZjo5PgG0", caption: "Banking System Showcase" }
+            { type: "youtube", url: "https://www.youtube.com/embed/UCkQRis2BDw", caption: "Showcase" }
         ]
     },
     {
         id: 6,
+        title: "Disguise Plugin",
+        category: "java",
+        image: 'images/thumbnails/disguise-thumbnail.png',
+        description: "A plugin that allows you to change your skin, your name and your rank. (Ranks hook up with LuckPerms API)",
+        links: [
+            { text: "Demo", url: "#" }
+        ],
+        media: [
+            { type: "youtube", url: "https://www.youtube.com/embed/XEyYZYUgTHw", caption: "Showcase" }
+        ]
+    },
+    {
+        id: 7,
         title: "Portfolio Website",
         category: "web",
         image: 'images/thumbnails/portfolio-thumbnail.png',
@@ -78,7 +88,7 @@ const projectsData = [
             { text: "Demo", url: "#" }
         ],
         media: [
-            { type: "image", url: "images/thumbnails/portfolio-thumbnail.png", caption: "Portfolio Showcase" }
+            { type: "image", url: "images/thumbnails/portfolio-thumbnail.png", caption: "Showcase" }
         ]
     },    
 
