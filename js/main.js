@@ -9,9 +9,9 @@ const projectsData = [
             { text: "Demo", url: "#" }
         ],
         media: [
-            { type: "streamable", url: "https://streamable.com/jhmxkz", caption: "Thunderstrike: Strikes the player with a bolt of lightning. Almost like a orbital beam." },
-            { type: "streamable", url: "https://streamable.com/306slk", caption: "Cacoon: Removes the players ability to walk and strikes them with thunder." },
-            { type: "streamable", url: "https://streamable.com/kcojye", caption: "Forbidden Glyphs: Remove options from the player." }
+            { type: "youtube", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", caption: "Thunderstrike: Strikes the player with a bolt of lightning. Almost like a orbital beam." },
+            { type: "youtube", url: "https://www.youtube.com/embed/xvFZjo5PgG0", caption: "Cacoon: Removes the players ability to walk and strikes them with thunder." },
+            { type: "youtube", url: "https://www.youtube.com/embed/xvFZjo5PgG0", caption: "Forbidden Glyphs: Remove options from the player." }
         ]
     },
     {
@@ -24,9 +24,9 @@ const projectsData = [
             { text: "Demo", url: "#" }
         ],
         media: [
-            { type: "streamable", url: "https://streamable.com/61e6ce", caption: "Fishing Rod Effects - Showcases 2 effects, one for the Mythic Rod rairty and one for the Legendary Rod rarity." },
-            { type: "streamable", url: "https://streamable.com/d13zl1", caption: "Fishing Index Showcase" },
-            { type: "streamable", url: "https://streamable.com/j6dd0d", caption: "Fishing Gear Showcase" }
+            { type: "youtube", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", caption: "Fishing Rod Effects - Showcases 2 effects, one for the Mythic Rod rairty and one for the Legendary Rod rarity." },
+            { type: "youtube", url: "https://www.youtube.com/embed/xvFZjo5PgG0", caption: "Fishing Index Showcase" },
+            { type: "youtube", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", caption: "Fishing Gear Showcase" }
         ]
     },
     {
@@ -39,7 +39,7 @@ const projectsData = [
             { text: "Demo", url: "#" }
         ],
         media: [
-            { type: "streamable", url: "https://streamable.com/eqpyw7", caption: "Auction House Showcase (The font is from a texture pack)" }
+            { type: "youtube", url: "https://www.youtube.com/embed/xvFZjo5PgG0", caption: "Auction House Showcase (The font is from a texture pack)" }
         ]
     },
     {
@@ -52,7 +52,7 @@ const projectsData = [
             { text: "Demo", url: "#" }
         ],
         media: [
-            { type: "streamable", url: "https://streamable.com/264q9d", caption: "Loot Crate Showcase" }
+            { type: "youtube", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", caption: "Loot Crate Showcase" }
         ]
     },
     {
@@ -65,7 +65,7 @@ const projectsData = [
             { text: "Demo", url: "#" }
         ],
         media: [
-            { type: "streamable", url: "https://streamable.com/39b9me", caption: "Banking System Showcase" }
+            { type: "youtube", url: "https://www.youtube.com/embed/xvFZjo5PgG0", caption: "Banking System Showcase" }
         ]
     },
     {
@@ -97,96 +97,256 @@ document.addEventListener('DOMContentLoaded', function() {
     addMinecraftSounds();
     init3DHoverEffects();
     addDiscordAlerts();
+    initParticleControls();
 });
 
-function initParticles() {
-    if (typeof particlesJS !== 'undefined') {
-        particlesJS('particles-js', {
-            particles: {
-                number: {
-                    value: 50,
-                    density: {
-                        enable: true,
-                        value_area: 800
-                    }
-                },
-                color: {
-                    value: "#ffffff"
-                },
-                shape: {
-                    type: "square",
-                    stroke: {
-                        width: 0,
-                        color: "#000000"
-                    },
-                    polygon: {
-                        nb_sides: 4
-                    }
-                },
-                opacity: {
-                    value: 0.2,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 0.2,
-                        opacity_min: 0.1,
-                        sync: false
-                    }
-                },
-                size: {
-                    value: 4,
-                    random: true,
-                    anim: {
-                        enable: false,
-                        speed: 40,
-                        size_min: 0.1,
-                        sync: false
-                    }
-                },
-                line_linked: {
-                    enable: false
-                },
-                move: {
-                    enable: true,
-                    speed: 1,
-                    direction: "top",
-                    random: true,
-                    straight: false,
-                    out_mode: "out",
-                    bounce: false,
-                    attract: {
-                        enable: false,
-                        rotateX: 600,
-                        rotateY: 1200
-                    }
-                }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: {
-                    onhover: {
-                        enable: true,
-                        mode: "repulse"
-                    },
-                    onclick: {
-                        enable: true,
-                        mode: "push"
-                    },
-                    resize: true
-                },
-                modes: {
-                    repulse: {
-                        distance: 100,
-                        duration: 0.4
-                    },
-                    push: {
-                        particles_nb: 4
-                    }
-                }
-            },
-            retina_detect: true
-        });
+function initParticleControls() {
+    const particleButton = document.getElementById('particle-test-btn');
+    if (particleButton) {
+        particleButton.addEventListener('click', showAllParticles);
     }
+}
+
+function initParticles() {
+    const container = document.getElementById('particles-js');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    window.particles = [];
+    window.particleCount = 40;
+    window.animationFrameId = null;
+    
+    const createParticle = (x, y, depth, velX, velY) => {
+        const particle = document.createElement('div');
+        particle.className = 'minecraft-particle';
+        
+        const size = 1 + Math.random() * 3;
+        const scale = 0.5 + depth * 0.5;
+        const actualSize = size * scale;
+        
+        particle.style.width = `${actualSize}px`;
+        particle.style.height = `${actualSize}px`;
+        particle.style.backgroundColor = '#ffffff';
+        particle.style.boxShadow = `0 0 ${2 + depth * 3}px rgba(255, 255, 255, ${0.3 + depth * 0.4})`;
+        particle.style.opacity = 0.3 + depth * 0.7;
+        particle.style.transform = `translateZ(${depth * 20}px)`;
+        
+        particle.style.left = `${x}%`;
+        particle.style.top = `${y}%`;
+        
+        const lifespan = 5000 + Math.random() * 7000;
+        
+        const particleObj = {
+            element: particle,
+            x,
+            y,
+            velX: velX || (Math.random() - 0.5) * 0.4,
+            velY: velY || (Math.random() - 0.5) * 0.4,
+            size: actualSize,
+            depth,
+            lifespan,
+            birth: Date.now(),
+            wobbleOffset: Math.random() * Math.PI * 2,
+            wobbleSpeed: 0.5 + Math.random() * 2
+        };
+        
+        window.particles.push(particleObj);
+        container.appendChild(particle);
+        
+        return particleObj;
+    };
+    
+    for (let i = 0; i < window.particleCount; i++) {
+        createParticle(
+            Math.random() * 100,
+            Math.random() * 100,
+            Math.random(),
+            (Math.random() - 0.5) * 0.4,
+            (Math.random() - 0.5) * 0.4
+        );
+    }
+    
+    function update() {
+        const now = Date.now();
+        const deadParticles = [];
+        
+        window.particles.forEach((p, idx) => {
+            const age = now - p.birth;
+            if (age > p.lifespan) {
+                deadParticles.push(idx);
+                return;
+            }
+            
+            const lifeRatio = age / p.lifespan;
+            
+            // Add some wobble to movement
+            const wobble = Math.sin(now * 0.001 * p.wobbleSpeed + p.wobbleOffset) * 0.05;
+            
+            p.velY += (Math.random() - 0.48) * 0.01; // Slight upward bias
+            p.velX += (Math.random() - 0.5) * 0.01;
+            
+            // Dampen velocity over time
+            p.velX *= 0.99;
+            p.velY *= 0.99;
+            
+            p.x += p.velX + wobble;
+            p.y += p.velY;
+            
+            // Wrap around screen edges with some randomness
+            if (p.x < -5) p.x = 105 - Math.random() * 10;
+            if (p.x > 105) p.x = -5 + Math.random() * 10;
+            if (p.y < -5) p.y = 105 - Math.random() * 10;
+            if (p.y > 105) p.y = -5 + Math.random() * 10;
+            
+            p.element.style.left = `${p.x}%`;
+            p.element.style.top = `${p.y}%`;
+            p.element.style.opacity = (1 - lifeRatio) * (0.3 + p.depth * 0.7);
+        });
+        
+        // Remove dead particles from end to start
+        for (let i = deadParticles.length - 1; i >= 0; i--) {
+            const idx = deadParticles[i];
+            if (window.particles[idx] && window.particles[idx].element) {
+                container.removeChild(window.particles[idx].element);
+                window.particles.splice(idx, 1);
+            }
+        }
+        
+        // Add new particles occasionally
+        if (window.particles.length < 100 && Math.random() < 0.1) {
+            createParticle(
+                Math.random() * 100,
+                Math.random() * 100,
+                Math.random(),
+                (Math.random() - 0.5) * 0.4,
+                (Math.random() - 0.5) * 0.4
+            );
+        }
+        
+        window.animationFrameId = requestAnimationFrame(update);
+    }
+    
+    update();
+}
+
+function showAllParticles() {
+    const container = document.getElementById('particles-js');
+    if (!container) return;
+    
+    if (window.animationFrameId) {
+        cancelAnimationFrame(window.animationFrameId);
+    }
+    
+    container.innerHTML = '';
+    window.particles = [];
+    
+    const burstParticles = () => {
+        const center = { x: 50, y: 50 };
+        const count = 150;
+        
+        for (let i = 0; i < count; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 30;
+            const speed = 0.5 + Math.random() * 2;
+            
+            const x = center.x + Math.cos(angle) * (Math.random() * 5);
+            const y = center.y + Math.sin(angle) * (Math.random() * 5);
+            
+            const velX = Math.cos(angle) * speed * (0.5 + Math.random() * 0.5);
+            const velY = Math.sin(angle) * speed * (0.5 + Math.random() * 0.5);
+            
+            const depth = Math.random();
+            
+            const particle = document.createElement('div');
+            particle.className = 'minecraft-particle';
+            
+            const baseSize = 1 + Math.random() * 3;
+            const scale = 0.5 + depth * 0.5;
+            const size = baseSize * scale;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.backgroundColor = '#ffffff';
+            particle.style.boxShadow = `0 0 ${2 + depth * 4}px rgba(255, 255, 255, ${0.4 + depth * 0.6})`;
+            particle.style.opacity = 0.4 + depth * 0.6;
+            particle.style.transform = `translateZ(${depth * 30}px)`;
+            
+            particle.style.left = `${x}%`;
+            particle.style.top = `${y}%`;
+            
+            window.particles.push({
+                element: particle,
+                x,
+                y,
+                velX,
+                velY,
+                size,
+                depth,
+                drag: 0.97 + Math.random() * 0.02,
+                gravity: 0.02 * (1 - depth * 0.5),
+                wobble: {
+                    speed: 0.5 + Math.random() * 2,
+                    offset: Math.random() * Math.PI * 2,
+                    magnitude: 0.05 + Math.random() * 0.1
+                },
+                birth: Date.now(),
+                lifespan: 2000 + Math.random() * 3000
+            });
+            
+            container.appendChild(particle);
+        }
+    };
+    
+    function update() {
+        const now = Date.now();
+        const deadParticles = [];
+        
+        window.particles.forEach((p, idx) => {
+            const age = now - p.birth;
+            if (age > p.lifespan) {
+                deadParticles.push(idx);
+                return;
+            }
+            
+            const lifeRatio = age / p.lifespan;
+            
+            // Add some wobble and physics
+            const wobble = Math.sin(now * 0.001 * p.wobble.speed + p.wobble.offset) * p.wobble.magnitude;
+            
+            p.velY += p.gravity;
+            p.velX += wobble;
+            
+            // Apply drag
+            p.velX *= p.drag;
+            p.velY *= p.drag;
+            
+            p.x += p.velX;
+            p.y += p.velY;
+            
+            p.element.style.left = `${p.x}%`;
+            p.element.style.top = `${p.y}%`;
+            p.element.style.opacity = (1 - lifeRatio * 0.8) * (0.4 + p.depth * 0.6);
+        });
+        
+        // Remove dead particles
+        for (let i = deadParticles.length - 1; i >= 0; i--) {
+            const idx = deadParticles[i];
+            if (window.particles[idx]?.element) {
+                container.removeChild(window.particles[idx].element);
+                window.particles.splice(idx, 1);
+            }
+        }
+        
+        if (window.particles.length > 0) {
+            window.animationFrameId = requestAnimationFrame(update);
+        } else {
+            initParticles();
+        }
+    }
+    
+    burstParticles();
+    update();
+    playSound('click');
 }
 
 function loadProjects(category) {
@@ -336,25 +496,20 @@ function initMediaCarousel() {
             
             video.appendChild(source);
             mediaContainer.appendChild(video);
-        } else if (media.type === 'streamable') {
-            let videoId = media.url;
-            if (media.url.includes('streamable.com/')) {
-                const matches = media.url.match(/streamable\.com\/(?:e\/)?([a-zA-Z0-9]+)/);
-                if (matches && matches[1]) {
-                    videoId = matches[1];
-                }
-            }
+        } else if (media.type === 'youtube') {
             const iframe = document.createElement('iframe');
-            iframe.src = `https://streamable.com/e/${videoId}`;
+            iframe.src = media.url;
             iframe.width = '100%';
             iframe.height = '100%';
             iframe.frameBorder = '0';
             iframe.allowFullscreen = true;
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
             const iframeContainer = document.createElement('div');
-            iframeContainer.className = 'streamable-container';
+            iframeContainer.className = 'youtube-container';
             iframeContainer.appendChild(iframe);
             
             mediaContainer.appendChild(iframeContainer);
+
         }
         
         mediaCaption.textContent = media.caption || '';
@@ -449,6 +604,8 @@ function getCategoryLabel(category) {
             return 'Java Plugin';
         case 'skript':
             return 'Skript';
+        case 'web':
+            return 'Website'
         default:
             return category;
     }

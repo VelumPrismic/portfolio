@@ -7,7 +7,6 @@
     --gray-color: #757575;
     --minecraft-font: 'VT323', monospace;
     --body-font: 'VT323', monospace;
-    
     --dirt-brown: #866043;
     --grass-green: #5D9C40;
     --stone-gray: #828282;
@@ -18,6 +17,18 @@
     --diamond-blue: #55FFFF;
     --emerald-green: #00D93A;
     --gold-yellow: #FCEE4B;
+    --ruby-red: #E0115F;
+    --amethyst-purple: #7A288A;
+    --topaz-orange: #FFC080;
+    --citrus-yellow: #F7DC6F;
+    --sapphire-blue: #0065BD;
+    --jade-green: #34C759;
+    --garnet-red: #733333;
+    --peridot-green: #CCFF00;
+    --citrine-yellow: #F2C464;
+    --turquoise-blue: #1ABC9C;
+    --opal-white: #FFFFFF;
+    --onyx-black: #000000;
     --selection-bg: rgba(85, 255, 255, 0.3);
     --selection-text: #ffffff;
 }
@@ -164,7 +175,41 @@ a:hover, button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: 1000;
+    background-color: transparent;
+    overflow: hidden;
+    pointer-events: none;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.minecraft-particle {
+    position: absolute;
+    pointer-events: none;
+    background-color: #ffffff;
+    border-radius: 0;
+    will-change: transform, opacity;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+.particle-test-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    background-color: var(--stone-gray);
+    color: white;
+    border-color: #a0a0a0 #505050 #505050 #a0a0a0;
+    opacity: 0.7;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.particle-test-btn:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    border-color: var(--diamond-blue);
 }
 
 a {
@@ -1136,6 +1181,7 @@ h1, h2, h3, h4, h5, h6 {
     border-color: #565656 #DBDBDB #DBDBDB #565656;
 }
 
+.youtube-container,
 .streamable-container {
     width: 100%;
     height: 0;
@@ -1144,6 +1190,7 @@ h1, h2, h3, h4, h5, h6 {
     overflow: hidden;
 }
 
+.youtube-container iframe,
 .streamable-container iframe {
     position: absolute;
     top: 0;
