@@ -64,6 +64,14 @@ const projects = [
     link: "",
     video: "https://www.youtube.com/watch?v=UCkQRis2BDw"
   },
+  {
+    title: "Courier Plugin",
+    description: "A plugin that uses Discords Bot API to add linking accounts, showing online players, and more. It has a highly customizable config.yml file to allow for a lot of different use cases.",
+    category: "minecraft",
+    tags: ["Minecraft", "Java", "SQLite", "2025"],
+    date: "2025",
+    link: "https://github.com/VelumPrismic/Courier"
+  },
 ];
 
 function renderProjects() {
