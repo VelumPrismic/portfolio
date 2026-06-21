@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VelumPrismic's Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C41E3A'%3E%3Cpath d='M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="grain"></div>
+  <nav>
+    <div class="nav-inner">
+      <span class="logo">// Portfolio</span>
+      <span class="live-clock" data-tooltip="My Timezone">GMT+8 · <span id="clock">00:00 AM</span></span>
+    </div>
+  </nav>
+
+  <section id="about" class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <p class="hero-badge">Developer & Creator</p>
+          <h1 class="hero-title">Hello I'm<br><span class="gradient-text">VelumPrismic</span></h1>
+          <p class="hero-desc">I'm a developer specializing in Minecraft Plugin Development, Python and Java. I've built some interesting <a href="#projects">projects</a> for you to check out.</p>
+        </div>
+        <div class="hero-avatar">
+          <img src="images/developer-avatar.jpg " alt="avatar" id="avatar-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-title"><span class="title-num">01 </span>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <img width="64" height="64" src="https://img.icons8.com/3d-fluency/94/java-coffee-cup-logo.png" alt="java-coffee-cup-logo"/>
+          <h3>Java</h3>
+        </div>
+        <div class="skill-card reveal">
+          <img width="64" height="64" src="https://img.icons8.com/plasticine/100/python.png" alt="python"/>
+          <h3>Python</h3>
+        </div>
+        <div class="skill-card reveal">
+          <img width="64" height="64" src="https://img.icons8.com/color/48/html-5--v1.png" alt="html-5--v1"/>
+          <h3>Web</h3>
+        </div>
+        <div class="skill-card reveal">
+          <img width="64" height="64" src="https://img.icons8.com/color/48/git.png" alt="git"/>
+          <h3>Git</h3>
+        </div>
+        <!-- <div class="skill-card reveal">
+          <img width="64" height="64" src="images/skript-logo.png" alt="skript"/>
+          <h3>Skript</h3>
+        </div> -->
+
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title"><span class="title-num">02 </span>Projects</h2>
+      <div class="tabs">
+        <button class="tab-btn active" data-filter="all">All</button>
+        <button class="tab-btn" data-filter="minecraft">Minecraft</button>
+        <button class="tab-btn" data-filter="python">Python</button>
+        <button class="tab-btn" data-filter="java">Java</button>
+        <select class="year-select" id="yearFilter">
+          <option value="all">All Years</option>
+        </select>
+      </div>
+      <div class="projects-grid"></div>
+      <p class="no-results hidden">No projects match this filter.</p>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container">
+      <p class="contact-text">Find me on <a  target="_blank" href="https://github.com/VelumPrismic">GitHub</a>, <a href="#" class="discord-link">Discord</a>, <a  target="_blank" href="https://www.youtube.com/@velumprismic-dev/videos">Youtube</a></p>
+    </div>
+    <div id="toast"></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
