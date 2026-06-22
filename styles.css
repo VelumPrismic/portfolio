@@ -204,6 +204,7 @@ section {
 
 .hero-avatar {
   flex-shrink: 0;
+  margin-right: 60px;
 }
 
 #avatar-img {
