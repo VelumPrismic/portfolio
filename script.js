@@ -78,7 +78,7 @@ function renderProjects() {
   const grid = document.querySelector('.projects-grid');
   const sorted = [...projects].sort((a, b) => (b.date || '0').localeCompare(a.date || '0'));
   grid.innerHTML = sorted.map(p => `
-    <div class="project-card reveal" data-category="${p.category}" data-year="${p.date}">
+    <div class="project-card" data-category="${p.category}" data-year="${p.date}">
       <div class="card-body">
         <h3>${p.title}</h3>
         <p>${p.description}</p>
@@ -139,7 +139,7 @@ function filterProjects() {
       visibleCount++;
       card.style.animation = 'none';
       card.offsetHeight;
-      card.style.animation = `fadeSlideUp 0.4s ${i * 0.05}s ease both`;
+      card.style.animation = `fadeSlideUp 0.3s ${i * 0.03}s ease both`;
     }
   });
 
