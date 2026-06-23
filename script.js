@@ -21,6 +21,14 @@ const projects = [
     video: ""
   },
   {
+    title: "LiteBrowse",
+    description: "LiteBrowse is a web-based SQLite database explorer built with FastAPI that lets users upload, browse, search, sort, and edit database files through a dark-themed browser interface.",
+    category: "python",
+    tags: ["Python", "SQLite", "2026"],
+    date: "2026",
+    link: "https://github.com/VelumPrismic/LiteBrowse"
+  },
+  {
     title: "Block Blast Remake",
     description: "A remake of the popular mobile game 'Block Blast' in Java.",
     category: "java",
@@ -61,14 +69,14 @@ const experience = [
     server: "Shyft",
     role: "Founder",
     period: "2026 - Present",
-    description: "Shyft is an MMORPG Minecraft server built for Paper 1.21.11. I was responsible for architecting and developing the server's core systems including combat, dungeons, quests, player progression (levels, ascensions, stats, races, traits, clans), custom mobs, mining, economy and ensuring stability and delivering new features iteratively based on playtesting feedback.",
+    description: "Shyft is an MMORPG Minecraft Server where I was responsible for architecting and developing the server's core systems including combat, dungeons, quests, player progression (levels, ascensions, stats, races, traits, clans), custom mobs, mining, economy and ensuring stability and delivering new features iteratively based on playtesting feedback.",
     demo: true
   },
   {
     server: "CoreBreak",
     role: "Lead Developer",
     period: "2025 - 2026",
-    description: "CoreBreak is a PvP Based Minecraft Server that was built for Paper 1.21.8. I was responsible for the development of the server's core systems, ensuring stability, and implementing new features based on player feedback.",
+    description: "Corebreak is a PvP Minecraft Server where I led the design and implementation of the server's foundational systems from combat mechanics and quest loops to player progression (prestige, stats, tiers, trinkets, generators), custom items, dual-currency economy, daily rewards, playtime milestones, island exploration, kill streaks, player profiles, and boosters while continuously iterating on stability and features based on playtester feedback.",
     demo: true
   },
 ];
