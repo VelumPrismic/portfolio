@@ -56,6 +56,37 @@ const projects = [
   },
 ];
 
+const experience = [
+    {
+    server: "Shyft",
+    role: "Founder",
+    period: "2026 - Present",
+    description: "Shyft is an MMORPG Minecraft server plugin built for Paper 1.21.11. I was responsible for architecting and developing the server's core systems including combat, dungeons, quests, player progression (levels, ascensions, stats, races, traits, clans), custom mobs, mining, economy and ensuring stability and delivering new features iteratively based on playtesting feedback.",
+    demo: true
+  },
+  {
+    server: "CoreBreak",
+    role: "Lead Developer",
+    period: "2024 - 2025",
+    description: "CoreBreak is a PvP Based Minecraft Server that was built on Paper 1.21.8. I was responsible for the development of the server's core systems, ensuring stability, and implementing new features based on player feedback.",
+    demo: true
+  },
+];
+
+function renderExperience() {
+  const timeline = document.querySelector('.timeline');
+  timeline.innerHTML = experience.map(exp => `
+    <div class="timeline-item reveal">
+      <div class="timeline-content">
+        <div class="timeline-period">${exp.period}</div>
+        <h3>${exp.server} • ${exp.role}</h3>
+        <p>${exp.description}</p>
+        ${exp.demo ? `<button class="demo-btn" onclick="requestDemo('${exp.server}')">Request Demo</button>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
 function renderProjects() {
   const grid = document.querySelector('.projects-grid');
   const sorted = [...projects].sort((a, b) => (b.date || '0').localeCompare(a.date || '0'));
@@ -77,6 +108,7 @@ function renderProjects() {
 }
 
 renderProjects();
+renderExperience();
 
 function updateClock() {
   const now = new Date();
@@ -157,7 +189,89 @@ revealEls.forEach((el, i) => {
 });
 
 const DISCORD_USERNAME = 'VelumPrismic';
+const DISCORD_USER_ID = '593013320819146753'; 
+const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1518829328887185550/G4ZAlxR-TOE-LcPV7hIJu8lUG6zfRJL9W_BrOe67Qvo1g70MhiaI9xy0_d0MiVKUcy1_'; 
 const toast = document.getElementById('toast');
+
+const DEMO_COOLDOWN = 60000;
+
+const modalOverlay = document.getElementById('demo-modal');
+const modalInput = document.getElementById('demo-input');
+const modalSubmit = document.getElementById('demo-submit');
+const modalCancel = document.getElementById('demo-cancel');
+
+function openModal() {
+  return new Promise(resolve => {
+    modalOverlay.classList.add('open');
+    modalInput.value = '';
+    modalInput.focus();
+
+    function close(value) {
+      modalOverlay.classList.remove('open');
+      resolve(value);
+    }
+
+    modalSubmit.onclick = () => {
+      const val = modalInput.value.trim();
+      if (val) close(val);
+    };
+    modalCancel.onclick = () => close(null);
+    modalInput.onkeydown = e => {
+      if (e.key === 'Enter') modalSubmit.click();
+      if (e.key === 'Escape') modalCancel.click();
+    };
+  });
+}
+
+function sendDemo(serverName, discord) {
+  fetch(DISCORD_WEBHOOK, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      content: `<@${DISCORD_USER_ID}>`,
+      allowed_mentions: { users: [DISCORD_USER_ID] },
+      embeds: [{
+        title: `Demo Request — ${serverName}`,
+        color: 0xC41E3A,
+        fields: [
+          { name: 'Discord', value: discord, inline: true },
+          { name: 'Browser', value: navigator.userAgent.slice(0, 100), inline: true },
+          { name: 'Page', value: window.location.href, inline: false }
+        ],
+        footer: { text: new Date().toLocaleString() }
+      }]
+    })
+  }).then(() => {
+    localStorage.setItem(`demo_${serverName}`, Date.now());
+    toast.textContent = `Demo request sent for ${serverName}! I'll be in touch.`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }).catch(() => {
+    toast.textContent = 'Failed to send request. Try again later.';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  });
+}
+
+function requestDemo(serverName) {
+  const last = localStorage.getItem(`demo_${serverName}`);
+  if (last && Date.now() - Number(last) < DEMO_COOLDOWN) {
+    const remaining = Math.ceil((DEMO_COOLDOWN - (Date.now() - Number(last))) / 1000);
+    toast.textContent = `Please wait ${remaining}s before requesting another demo.`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+    return;
+  }
+  if (!DISCORD_WEBHOOK) {
+    toast.textContent = 'Demo requests are not configured yet.';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+    return;
+  }
+  openModal().then(discord => {
+    if (discord) sendDemo(serverName, discord);
+  });
+}
 
 document.querySelectorAll('.discord-link').forEach(el => {
   el.addEventListener('click', e => {
