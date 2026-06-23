@@ -67,7 +67,7 @@ const experience = [
   {
     server: "CoreBreak",
     role: "Lead Developer",
-    period: "2024 - 2025",
+    period: "2025 - 2026",
     description: "CoreBreak is a PvP Based Minecraft Server that was built for Paper 1.21.8. I was responsible for the development of the server's core systems, ensuring stability, and implementing new features based on player feedback.",
     demo: true
   },
