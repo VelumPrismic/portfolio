@@ -61,14 +61,14 @@ const experience = [
     server: "Shyft",
     role: "Founder",
     period: "2026 - Present",
-    description: "Shyft is an MMORPG Minecraft server plugin built for Paper 1.21.11. I was responsible for architecting and developing the server's core systems including combat, dungeons, quests, player progression (levels, ascensions, stats, races, traits, clans), custom mobs, mining, economy and ensuring stability and delivering new features iteratively based on playtesting feedback.",
+    description: "Shyft is an MMORPG Minecraft server built for Paper 1.21.11. I was responsible for architecting and developing the server's core systems including combat, dungeons, quests, player progression (levels, ascensions, stats, races, traits, clans), custom mobs, mining, economy and ensuring stability and delivering new features iteratively based on playtesting feedback.",
     demo: true
   },
   {
     server: "CoreBreak",
     role: "Lead Developer",
     period: "2024 - 2025",
-    description: "CoreBreak is a PvP Based Minecraft Server that was built on Paper 1.21.8. I was responsible for the development of the server's core systems, ensuring stability, and implementing new features based on player feedback.",
+    description: "CoreBreak is a PvP Based Minecraft Server that was built for Paper 1.21.8. I was responsible for the development of the server's core systems, ensuring stability, and implementing new features based on player feedback.",
     demo: true
   },
 ];
