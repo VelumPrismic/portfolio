@@ -14,6 +14,7 @@ body {
   background: #080808;
   line-height: 1.7;
   overflow-x: hidden;
+
 }
 
 .grain {
@@ -185,6 +186,8 @@ section {
   pointer-events: none;
 }
 
+
+
 @keyframes heroPulse {
   0% { opacity: 0.3; transform: scale(1); }
   100% { opacity: 0.8; transform: scale(1.05); }
@@ -315,10 +318,6 @@ section {
 
 .skill-card img {
   transition: transform 0.4s ease;
-}
-
-.skill-card:hover img {
-  transform: scale(1.15) rotate(-5deg);
 }
 
 .skill-icon-img {
@@ -468,9 +467,16 @@ section {
 }
 
 .card-link {
-  font-size: 0.78rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
   font-weight: 500;
   color: #C41E3A;
+  transition: color 0.2s, transform 0.2s;
+}
+.card-link:hover {
+  transform: scale(1.15);
 }
 
 .card-links {

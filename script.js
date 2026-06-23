@@ -12,7 +12,7 @@ const projects = [
     link: "https://github.com/VelumPrismic/PasswordManager"
   },
   {
-    title: "Discord Bot",
+    title: "Python Bot",
     description: "A useful Discord Bot made with Python. It's features include the standard moderation tools, auto threads, sticky messages, etc.",
     category: "python",
     tags: ["Python", "2026"],
@@ -29,7 +29,7 @@ const projects = [
     link: "https://github.com/VelumPrismic/BlockBlastRemake"
   },
   {
-    title: "Random Weapons Plugin",
+    title: "Random Weapons",
     description: "An all-in-one plugin that has a couple of weapons made using Java. It's main focus is to show VFX + SFX Work.",
     category: "minecraft",
     tags: ["Minecraft", "Java", "2026"],
@@ -38,7 +38,7 @@ const projects = [
     video: "https://www.youtube.com/watch?v=TZ7B7Exs9Nk"
   },
   {
-    title: "Cutscene Plugin",
+    title: "Cutscenes",
     description: "A plugin to make cutscenes in Vanilla Minecraft.",
     category: "minecraft",
     tags: ["Minecraft", "Java", "Commission", "2026"],
@@ -47,25 +47,7 @@ const projects = [
     video: "https://www.youtube.com/watch?v=qtBsWj-aNYY"
   },
   {
-    title: "Disguise Plugin",
-    description: "A recreation of the Hypixel Nick System, not perfect but decent.",
-    category: "minecraft",
-    tags: ["Minecraft", "Java", "Commission", "2025"],
-    date: "2025",
-    link: "",
-    video: "https://www.youtube.com/watch?v=XEyYZYUgTHw"
-  },
-  {
-    title: "Minions Plugin",
-    description: "A recreation of Hypixel Skyblocks Minions. It's a more barebones, less polished version.",
-    category: "minecraft",
-    tags: ["Minecraft", "Java", "2025"],
-    date: "2025",
-    link: "",
-    video: "https://www.youtube.com/watch?v=UCkQRis2BDw"
-  },
-  {
-    title: "Courier Plugin",
+    title: "Courier",
     description: "A plugin that uses Discords Bot API to add linking accounts, showing online players, and more. It has a highly customizable config.yml file to allow for a lot of different use cases.",
     category: "minecraft",
     tags: ["Minecraft", "Java", "SQLite", "2025"],
@@ -86,7 +68,7 @@ function renderProjects() {
           ${p.tags.map(t => `<span>${t}</span>`).join('')}
         </div>
         <div class="card-links">
-          ${p.link ? `<a href="${p.link}" class="card-link" target="_blank">Github</a>` : ''}
+          ${p.link ? `<a href="${p.link}" class="card-link" target="_blank">GitHub</a>` : ''}
           ${p.video ? `<a href="${p.video}&autoplay=1" class="card-link" target="_blank">Showcase</a>` : ''}
         </div>
       </div>
