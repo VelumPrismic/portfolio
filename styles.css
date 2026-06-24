@@ -404,6 +404,8 @@ section {
 }
 
 .project-card {
+  display: flex;
+  flex-direction: column;
   background: rgba(255, 255, 255, 0.015);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 14px;
@@ -433,6 +435,9 @@ section {
 }
 
 .card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: 28px;
 }
 
@@ -444,6 +449,7 @@ section {
 }
 
 .card-body p {
+  flex: 1;
   font-size: 0.85rem;
   color: #666;
   margin-bottom: 16px;
@@ -531,6 +537,7 @@ section {
 }
 
 .demo-btn {
+  align-self: flex-start;
   margin-top: 14px;
   background: transparent;
   border: 1px solid rgba(196, 30, 58, 0.25);

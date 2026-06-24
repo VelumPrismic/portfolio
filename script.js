@@ -9,7 +9,7 @@ const projects = [
     category: "python",
     tags: ["Python", "2026"],
     date: "2026",
-    link: "https://github.com/VelumPrismic/PasswordManager"
+    link: "https://github.com/VelumPrismic/PasswordManager",
   },
   {
     title: "Python Bot",
@@ -43,7 +43,8 @@ const projects = [
     tags: ["Minecraft", "Java", "2026"],
     date: "2026",
     link: "",
-    video: "https://www.youtube.com/watch?v=TZ7B7Exs9Nk"
+    video: "https://www.youtube.com/watch?v=TZ7B7Exs9Nk",
+    demo: true
   },
   {
     title: "Cutscenes",
@@ -52,7 +53,8 @@ const projects = [
     tags: ["Minecraft", "Java", "Commission", "2026"],
     date: "2026",
     link: "",
-    video: "https://www.youtube.com/watch?v=qtBsWj-aNYY"
+    video: "https://www.youtube.com/watch?v=qtBsWj-aNYY",
+    demo: true
   },
   {
     title: "Courier",
@@ -60,7 +62,8 @@ const projects = [
     category: "minecraft",
     tags: ["Minecraft", "Java", "SQLite", "2025"],
     date: "2025",
-    link: "https://github.com/VelumPrismic/Courier"
+    link: "https://github.com/VelumPrismic/Courier",
+    demo: true
   },
 ];
 
@@ -69,15 +72,13 @@ const experience = [
     server: "Shyft",
     role: "Founder",
     period: "2026 - Present",
-    description: "Shyft is an MMORPG Minecraft Server where I was responsible for architecting and developing the server's core systems including combat, dungeons, quests, player progression (levels, ascensions, stats, races, traits, clans), custom mobs, mining, economy and ensuring stability and delivering new features iteratively based on playtesting feedback.",
-    demo: true
+    description: "Shyft is an MMORPG Minecraft Server where I was responsible for architecting and developing the server's core systems including combat, dungeons, quests, player progression (levels, ascensions, stats, races, traits, clans), custom mobs, mining, economy and ensuring stability and delivering new features iteratively based on playtesting feedback."
   },
   {
     server: "CoreBreak",
     role: "Lead Developer",
     period: "2025 - 2026",
-    description: "Corebreak is a PvP Minecraft Server where I led the design and implementation of the server's foundational systems from combat mechanics and quest loops to player progression (prestige, stats, tiers, trinkets, generators), custom items, dual-currency economy, daily rewards, playtime milestones, island exploration, kill streaks, player profiles, and boosters while continuously iterating on stability and features based on playtester feedback.",
-    demo: true
+    description: "Corebreak is a PvP Minecraft Server where I led the design and implementation of the server's foundational systems from combat mechanics and quest loops to player progression (prestige, stats, tiers, trinkets, generators), custom items, dual-currency economy, daily rewards, playtime milestones, island exploration, kill streaks, player profiles, and boosters while continuously iterating on stability and features based on playtester feedback."
   },
 ];
 
@@ -89,7 +90,6 @@ function renderExperience() {
         <div class="timeline-period">${exp.period}</div>
         <h3>${exp.server} • ${exp.role}</h3>
         <p>${exp.description}</p>
-        ${exp.demo ? `<button class="demo-btn" onclick="requestDemo('${exp.server}')">Request Demo</button>` : ''}
       </div>
     </div>
   `).join('');
@@ -110,6 +110,7 @@ function renderProjects() {
           ${p.link ? `<a href="${p.link}" class="card-link" target="_blank">GitHub</a>` : ''}
           ${p.video ? `<a href="${p.video}&autoplay=1" class="card-link" target="_blank">Showcase</a>` : ''}
         </div>
+        ${p.demo ? `<button class="demo-btn" onclick="requestDemo('${p.title}')">Request Demo</button>` : ''}
       </div>
     </div>
   `).join('');
@@ -231,7 +232,7 @@ function openModal() {
   });
 }
 
-function sendDemo(serverName, discord) {
+function sendDemo(projectName, discord) {
   fetch(DISCORD_WEBHOOK, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -239,7 +240,7 @@ function sendDemo(serverName, discord) {
       content: `<@${DISCORD_USER_ID}>`,
       allowed_mentions: { users: [DISCORD_USER_ID] },
       embeds: [{
-        title: `Demo Request — ${serverName}`,
+        title: `Demo Request (Plugin) — ${projectName}`,
         color: 0xC41E3A,
         fields: [
           { name: 'Discord', value: discord, inline: true },
@@ -250,8 +251,8 @@ function sendDemo(serverName, discord) {
       }]
     })
   }).then(() => {
-    localStorage.setItem(`demo_${serverName}`, Date.now());
-    toast.textContent = `Demo request sent for ${serverName}! I'll be in touch.`;
+    localStorage.setItem(`demo_${projectName}`, Date.now());
+    toast.textContent = `Demo request sent for ${projectName}! I'll be in touch.`;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3000);
   }).catch(() => {
@@ -261,8 +262,8 @@ function sendDemo(serverName, discord) {
   });
 }
 
-function requestDemo(serverName) {
-  const last = localStorage.getItem(`demo_${serverName}`);
+function requestDemo(projectName) {
+  const last = localStorage.getItem(`demo_${projectName}`);
   if (last && Date.now() - Number(last) < DEMO_COOLDOWN) {
     const remaining = Math.ceil((DEMO_COOLDOWN - (Date.now() - Number(last))) / 1000);
     toast.textContent = `Please wait ${remaining}s before requesting another demo.`;
@@ -277,7 +278,7 @@ function requestDemo(serverName) {
     return;
   }
   openModal().then(discord => {
-    if (discord) sendDemo(serverName, discord);
+    if (discord) sendDemo(projectName, discord);
   });
 }
 
