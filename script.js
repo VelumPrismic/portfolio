@@ -44,7 +44,6 @@ const projects = [
     date: "2026",
     link: "",
     video: "https://www.youtube.com/watch?v=TZ7B7Exs9Nk",
-    demo: true
   },
   {
     title: "Cutscenes",
@@ -54,7 +53,6 @@ const projects = [
     date: "2026",
     link: "",
     video: "https://www.youtube.com/watch?v=qtBsWj-aNYY",
-    demo: true
   },
   {
     title: "Courier",
