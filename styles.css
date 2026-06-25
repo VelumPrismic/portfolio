@@ -543,6 +543,10 @@ section {
   font-size: 0.85rem;
   font-weight: 500;
   font-family: inherit;
+  transition: color 0.2s;
+}
+.demo-btn:hover {
+  color: #E63946;
 }
 
 .modal-overlay {
