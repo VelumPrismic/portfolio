@@ -87,7 +87,7 @@ const experience = [
   {
     server: "Previous Experience",
     role: "Plugin Developer",
-    period: "2023 - 2026",
+    period: "2023 - 2025",
     description: "Developed custom plugins and systems for 15+ private Minecraft servers across various genres: SMP, PvP, minigames, and RPG. Built everything from custom enchantments and crates to automated rank systems, player shops, and anti-grief tools. Gained deep experience with the Spigot/Paper API, configuration management, and server optimization across many small communities."
   },
 ];
