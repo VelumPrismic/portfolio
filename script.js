@@ -65,6 +65,12 @@ const projects = [
   },
 ];
 
+const stats = [
+  { label: "Years Experience", value: 3, suffix: "+" },
+  { label: "Servers Worked On", value: 20, suffix: "+" },
+  { label: "Plugins Developed", value: 50, suffix: "+" },
+];
+
 const experience = [
     {
     server: "Shyft",
@@ -78,6 +84,12 @@ const experience = [
     period: "2025 - 2026",
     description: "Corebreak is a PvP Minecraft Server where I led the design and implementation of the server's foundational systems from combat mechanics and quest loops to player progression (prestige, stats, tiers, trinkets, generators), custom items, dual-currency economy, daily rewards, playtime milestones, island exploration, kill streaks, player profiles, and boosters while continuously iterating on stability and features based on playtester feedback."
   },
+  {
+    server: "Previous Experience",
+    role: "Plugin Developer",
+    period: "2019 - 2024",
+    description: "Developed custom plugins and systems for 15+ private Minecraft servers across various genres: SMP, PvP, minigames, and RPG. Built everything from custom enchantments and crates to automated rank systems, player shops, and anti-grief tools. Gained deep experience with the Spigot/Paper API, configuration management, and server optimization across many small communities."
+  },
 ];
 
 function renderExperience() {
@@ -89,6 +101,17 @@ function renderExperience() {
         <h3>${exp.server} • ${exp.role}</h3>
         <p>${exp.description}</p>
       </div>
+    </div>
+  `).join('');
+}
+
+function renderStats() {
+  const row = document.querySelector('.stats-row');
+  row.innerHTML = stats.map(s => `
+    <div class="stat-card">
+      <span class="stat-value" data-target="${s.value}">0</span>
+      <span class="stat-suffix">${s.suffix}</span>
+      <span class="stat-label">${s.label}</span>
     </div>
   `).join('');
 }
@@ -115,6 +138,7 @@ function renderProjects() {
 }
 
 renderProjects();
+renderStats();
 renderExperience();
 
 function updateClock() {
@@ -194,6 +218,34 @@ revealEls.forEach((el, i) => {
   el.dataset.delay = i * 80;
   observer.observe(el);
 });
+
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  let current = 0;
+  const duration = 1000;
+  const interval = Math.max(15, Math.floor(duration / target));
+  const timer = setInterval(() => {
+    current++;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
+    }
+    el.textContent = current;
+  }, interval);
+}
+
+const statObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const val = entry.target.querySelector('.stat-value');
+      if (val) animateCounter(val);
+      entry.target.classList.add('visible');
+      statObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat-card').forEach(el => statObserver.observe(el));
 
 const DISCORD_USERNAME = 'VelumPrismic';
 const DISCORD_USER_ID = '593013320819146753'; 

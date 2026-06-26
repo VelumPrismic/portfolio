@@ -486,6 +486,54 @@ section {
   gap: 16px;
 }
 
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 28px 20px;
+  text-align: center;
+  transition: border-color 0.3s, opacity 0.7s ease, transform 0.7s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.stat-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stat-card:hover {
+  border-color: rgba(196, 30, 58, 0.15);
+}
+
+.stat-value {
+  display: inline;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #eee;
+  letter-spacing: -1px;
+}
+
+.stat-suffix {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #C41E3A;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.78rem;
+  color: #666;
+  margin-top: 6px;
+}
+
 .timeline-item {
   padding-bottom: 24px;
 }
