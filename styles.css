@@ -14,7 +14,6 @@ body {
   background: #080808;
   line-height: 1.7;
   overflow-x: hidden;
-
 }
 
 .grain {
@@ -320,15 +319,6 @@ section {
   transition: transform 0.4s ease;
 }
 
-.skill-icon-img {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  object-fit: cover;
-  margin-bottom: 12px;
-  display: block;
-}
-
 .skill-card h3 {
   color: #ddd;
   font-size: 0.95rem;
@@ -336,51 +326,44 @@ section {
   margin-bottom: 6px;
 }
 
-.skill-card p {
-  font-size: 0.78rem;
-  color: #666;
-  line-height: 1.6;
-}
-
 .tabs {
   display: flex;
-  gap: 6px;
+  gap: 0;
   margin-bottom: 32px;
   flex-wrap: wrap;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .tab-btn {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
   color: #555;
   padding: 8px 20px;
-  border-radius: 8px;
   cursor: pointer;
   font-size: 0.78rem;
   font-family: inherit;
   letter-spacing: 0.2px;
-  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  transition: color 0.2s, border-color 0.2s;
 }
 
 .tab-btn:hover {
-  background: rgba(255, 255, 255, 0.04);
   color: #aaa;
-  border-color: rgba(255, 255, 255, 0.1);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
 .tab-btn.active {
-  background: rgba(110, 181, 255, 0.08);
   color: #C41E3A;
-  border-color: rgba(110, 181, 255, 0.25);
+  border-bottom-color: #C41E3A;
 }
 
 .year-select {
   margin-left: auto;
-  background: #111;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: transparent;
+  border: none;
   color: #aaa;
   padding: 8px 20px;
-  border-radius: 8px;
   font-size: 0.78rem;
   font-family: inherit;
   cursor: pointer;
@@ -388,8 +371,7 @@ section {
 }
 
 .year-select:hover {
-  border-color: rgba(255, 255, 255, 0.1);
-  background: #1a1a1a;
+  color: #e0e0e0;
 }
 
 .year-select option {
@@ -418,7 +400,8 @@ section {
   border-color: rgba(196, 30, 58, 0.15);
 }
 
-.project-card.hidden {
+.project-card.hidden,
+.skill-card.hidden {
   display: none;
 }
 

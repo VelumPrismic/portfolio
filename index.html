@@ -36,36 +36,11 @@
   <section id="skills">
     <div class="container">
       <h2 class="section-title"><span class="title-num">01 </span>Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-card reveal">
-          <img width="64" height="64" src="https://img.icons8.com/3d-fluency/94/java-coffee-cup-logo.png" alt="java-coffee-cup-logo"/>
-          <h3>Java</h3>
-        </div>
-        <div class="skill-card reveal">
-          <img width="64" height="64" src="https://img.icons8.com/plasticine/100/python.png" alt="python"/>
-          <h3>Python</h3>
-        </div>
-        <div class="skill-card reveal">
-          <img width="64" height="64" src="https://img.icons8.com/color/48/html-5--v1.png" alt="html-5--v1"/>
-          <h3>Web</h3>
-        </div>
-        <div class="skill-card reveal">
-          <img width="64" height="64" src="https://img.icons8.com/ios/50/FFFFFF/sqlite.png" alt="sqlite"/>
-          <h3>SQLite</h3>
-        </div>
-        <div class="skill-card reveal">
-          <img width="64" height="64" src="images/skript-logo.png" alt="skript"/>
-          <h3>Skript</h3>
-        </div>
-        <div class="skill-card reveal">
-          <img width="64" height="64" src="https://img.icons8.com/ios/50/FFFFFF/maven-ios.png" alt="maven-ios"/>
-          <h3>Maven</h3>
-        </div>
-        <div class="skill-card reveal">
-          <img src="https://www.freeiconspng.com/uploads/minecraft-icon-7.png" width="64" height="64" alt="Minecraft Svg Icon" /></a>
-          <h3>Minecraft Development</h3>
-        </div>
+      <div class="tabs">
+        <button class="tab-btn active" data-filter="all">All</button>
+        <button class="tab-btn" data-filter="web">Web</button>
       </div>
+      <div class="skills-grid"></div>
     </div>
   </section>
 
@@ -74,9 +49,9 @@
       <h2 class="section-title"><span class="title-num">02 </span>Projects</h2>
       <div class="tabs">
         <button class="tab-btn active" data-filter="all">All</button>
-        <button class="tab-btn" data-filter="minecraft">Minecraft</button>
         <button class="tab-btn" data-filter="python">Python</button>
         <button class="tab-btn" data-filter="java">Java</button>
+        <button class="tab-btn" data-filter="minecraft">Minecraft</button>
         <select class="year-select" id="yearFilter">
           <option value="all">All Years</option>
         </select>

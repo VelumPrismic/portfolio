@@ -2,6 +2,21 @@
 // Java Projects
 // MC Projects
 
+const skills = [
+  { name: "Java", icon: "https://img.icons8.com/3d-fluency/94/java-coffee-cup-logo.png", category: "other" },
+  { name: "Python", icon: "https://img.icons8.com/plasticine/100/python.png", category: "other" },
+  { name: "JavaScript", icon: "https://img.icons8.com/color/48/javascript--v1.png", category: "web" },
+  { name: "React", icon: "https://img.icons8.com/officel/80/react.png", category: "web" },
+  { name: "Svelte", icon: "https://img.icons8.com/doodle/48/svetle.png", category: "web" },
+  { name: "HTML", icon: "https://img.icons8.com/color/48/html-5--v1.png", category: "web" },
+  { name: "CSS", icon: "https://img.icons8.com/color/48/css3.png", category: "web" },
+  { name: "Supabase", icon: "https://img.icons8.com/color/48/supabase.png", category: "web" },
+  { name: "SQLite", icon: "https://img.icons8.com/ios/50/FFFFFF/sqlite.png", category: "other" },
+  { name: "Maven", icon: "https://img.icons8.com/ios/50/FFFFFF/maven-ios.png", category: "other" },
+  { name: "Skript", icon: "images/skript-logo.png", category: "other" },
+  { name: "Minecraft Development", icon: "https://www.freeiconspng.com/uploads/minecraft-icon-7.png", category: "other" },
+];
+
 const projects = [
   {
     title: "Password Manager",
@@ -56,7 +71,7 @@ const projects = [
   },
   {
     title: "Courier",
-    description: "A plugin that uses Discords Bot API to add linking accounts, showing online players, and more. It has a highly customizable config.yml file to allow for a lot of different use cases.",
+    description: "A plugin that uses Discords Bot API to connect Minecraft and Discord together. It's features include linking accounts, discord slash commands and more. It has a highly customizable config.yml file to allow for a lot of different use cases.",
     category: "minecraft",
     tags: ["Minecraft", "Java", "SQLite", "2025"],
     date: "2025",
@@ -76,7 +91,7 @@ const experience = [
     server: "Shyft",
     role: "Founder",
     period: "2026 - Present",
-    description: "Shyft is an MMORPG Minecraft Server where I was responsible for architecting and developing the server's core systems including combat, dungeons, quests, player progression (levels, ascensions, stats, races, traits, clans), custom mobs, mining, economy and ensuring stability and delivering new features iteratively based on playtesting feedback."
+    description: "Shyft is an MMORPG Minecraft Server I'm currently working on. I am responsible for architecting and developing the server's core systems including combat, dungeons, quests, player progression (levels, ascensions, stats, races, traits, clans), custom mobs, mining, economy and ensuring stability and delivering new features iteratively based on playtesting feedback."
   },
   {
     server: "CoreBreak",
@@ -137,7 +152,18 @@ function renderProjects() {
   `).join('');
 }
 
+function renderSkills() {
+  const grid = document.querySelector('.skills-grid');
+  grid.innerHTML = skills.map(s => `
+    <div class="skill-card reveal" data-category="${s.category}">
+      <img width="64" height="64" src="${s.icon}" alt="${s.name.toLowerCase().replace(/\s+/g, '-')}"/>
+      <h3>${s.name}</h3>
+    </div>
+  `).join('');
+}
+
 renderProjects();
+renderSkills();
 renderStats();
 renderExperience();
 
@@ -154,8 +180,9 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-const tabButtons = document.querySelectorAll('.tab-btn');
-const projectCards = document.querySelectorAll('.project-card');
+const projectsSection = document.getElementById('projects');
+const projectTabButtons = projectsSection.querySelectorAll('.tab-btn');
+const projectCards = projectsSection.querySelectorAll('.project-card');
 const yearSelect = document.getElementById('yearFilter');
 
 const years = [...new Set(projects.map(p => p.date).filter(Boolean))].sort().reverse();
@@ -166,10 +193,10 @@ years.forEach(y => {
   yearSelect.appendChild(opt);
 });
 
-const noResults = document.querySelector('.no-results');
+const noResults = projectsSection.querySelector('.no-results');
 
 function filterProjects() {
-  const activeTab = document.querySelector('.tab-btn.active');
+  const activeTab = projectsSection.querySelector('.tab-btn.active');
   const categoryFilter = activeTab.dataset.filter;
   const yearFilter = yearSelect.value;
   let visibleCount = 0;
@@ -191,15 +218,46 @@ function filterProjects() {
   noResults.classList.toggle('hidden', visibleCount > 0);
 }
 
-tabButtons.forEach(btn => {
+projectTabButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    tabButtons.forEach(b => b.classList.remove('active'));
+    projectTabButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     filterProjects();
   });
 });
 
 yearSelect.addEventListener('change', filterProjects);
+
+const skillsSection = document.getElementById('skills');
+const skillsTabButtons = skillsSection.querySelectorAll('.tab-btn');
+const skillCards = skillsSection.querySelectorAll('.skill-card');
+
+function filterSkills() {
+  const activeTab = skillsSection.querySelector('.tab-btn.active');
+  const categoryFilter = activeTab.dataset.filter;
+  let visibleCount = 0;
+
+  skillCards.forEach((card, i) => {
+    const match = categoryFilter === 'all' ? card.dataset.category !== 'web' : card.dataset.category === 'web';
+    card.classList.toggle('hidden', !match);
+    if (match) {
+      visibleCount++;
+      card.style.animation = 'none';
+      card.offsetHeight;
+      card.style.animation = `fadeSlideUp 0.3s ${i * 0.03}s ease both`;
+    }
+  });
+}
+
+skillsTabButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    skillsTabButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterSkills();
+  });
+});
+
+filterSkills();
 
 const revealEls = document.querySelectorAll('.reveal');
 
@@ -252,7 +310,7 @@ const DISCORD_USER_ID = '593013320819146753';
 const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1518829328887185550/G4ZAlxR-TOE-LcPV7hIJu8lUG6zfRJL9W_BrOe67Qvo1g70MhiaI9xy0_d0MiVKUcy1_'; 
 const toast = document.getElementById('toast');
 
-const DEMO_COOLDOWN = 60000;
+const DEMO_COOLDOWN = 60000; // 60 seconds
 
 const modalOverlay = document.getElementById('demo-modal');
 const modalInput = document.getElementById('demo-input');
@@ -302,7 +360,7 @@ function sendDemo(projectName, discord) {
     })
   }).then(() => {
     localStorage.setItem(`demo_${projectName}`, Date.now());
-    toast.textContent = `Demo request sent for ${projectName}! I'll be in touch.`;
+    toast.textContent = `Demo request sent for ${projectName}! I'll be in touch. Make sure to check your discord friend requests!`;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3000);
   }).catch(() => {
