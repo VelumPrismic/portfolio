@@ -110,7 +110,7 @@ const experience = [
 function renderExperience() {
   const timeline = document.querySelector('.timeline');
   timeline.innerHTML = experience.map(exp => `
-    <div class="timeline-item reveal">
+    <div class="timeline-item">
       <div class="timeline-content">
         <div class="timeline-period">${exp.period}</div>
         <h3>${exp.server} • ${exp.role}</h3>
