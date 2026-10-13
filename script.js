@@ -12,6 +12,7 @@ const skills = [
   { name: "CSS", icon: "https://img.icons8.com/color/48/css3.png", category: "web" },
   { name: "Supabase", icon: "https://img.icons8.com/color/48/supabase.png", category: "web" },
   { name: "SQLite", icon: "https://img.icons8.com/ios/50/FFFFFF/sqlite.png", category: "other" },
+  // { name: "MySQL", icon: "https://img.icons8.com/color/48/mysql-logo.png", category: "data" },
   { name: "Maven", icon: "https://img.icons8.com/ios/50/FFFFFF/maven-ios.png", category: "other" },
   { name: "Skript", icon: "images/skript-logo.png", category: "other" },
   { name: "Minecraft Development", icon: "https://www.freeiconspng.com/uploads/minecraft-icon-7.png", category: "other" },
@@ -82,6 +83,22 @@ const projects = [
   {
     title: "Root",
     description: "An EssentialsX replacement with an Economy API that supports multiple currencies with a highly customizable config.yml file.",
+    category: "minecraft",
+    tags: ["Minecraft", "Java", "2026"],
+    date: "2026",
+    video: "https://www.youtube.com/watch?v=qtBsWj-aNYY",
+  },
+  {
+    title: "Chat Core",
+    description: "A chat management plugin for Minecraft servers, complete with chat colors, moderation commands, and more.",
+    category: "minecraft",
+    tags: ["Minecraft", "Java", "2026"],
+    date: "2026",
+    video: "https://www.youtube.com/watch?v=qtBsWj-aNYY",
+  },
+  {
+    title: "Punishment Core",
+    description: "A punishment management plugin for Minecraft servers, complete with mute, kick, ban, and more staff features.",
     category: "minecraft",
     tags: ["Minecraft", "Java", "2026"],
     date: "2026",
@@ -241,7 +258,7 @@ function filterSkills() {
   let visibleCount = 0;
 
   skillCards.forEach((card, i) => {
-    const match = categoryFilter === 'software' ? card.dataset.category !== 'web' : card.dataset.category === 'web';
+    const match = categoryFilter === 'all' ? true : categoryFilter === 'software' ? card.dataset.category !== 'web' : card.dataset.category === 'web';
     card.classList.toggle('hidden', !match);
     if (match) {
       visibleCount++;
