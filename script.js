@@ -87,22 +87,16 @@ const stats = [
 ];
 
 const experience = [
-    {
-    server: "Shyft",
-    role: "Founder",
-    period: "2026 - Present",
-    description: "Shyft is an MMORPG Minecraft Server I'm currently working on. I am responsible for architecting and developing the server's core systems including combat, dungeons, quests, player progression (levels, ascensions, stats, races, traits, clans), custom mobs, mining, economy and ensuring stability and delivering new features iteratively based on playtesting feedback."
-  },
   {
     server: "CoreBreak",
     role: "Lead Developer",
     period: "2025 - 2026",
-    description: "Corebreak is a PvP Minecraft Server where I led the design and implementation of the server's foundational systems from combat mechanics and quest loops to player progression (prestige, stats, tiers, trinkets, generators), custom items, dual-currency economy, daily rewards, playtime milestones, island exploration, kill streaks, player profiles, and boosters while continuously iterating on stability and features based on playtester feedback."
+    description: "Corebreak is a PvP Minecraft Server where I led the design and implementation of the server's foundational systems from combat mechanicss to player progression (prestige, stats, tiers, trinkets, generators), custom items, dual-currency economy, daily rewards, playtime milestones, island exploration, kill streaks, player profiles, and boosters while continuously iterating on stability and features based on playtester feedback."
   },
   {
     server: "Previous Experience",
     role: "Plugin Developer",
-    period: "2023 - 2025",
+    period: "2022 - 2025",
     description: "Developed custom plugins and systems for 15+ private Minecraft servers across various genres: SMP, PvP, minigames, and RPG. Built everything from custom enchantments and crates to automated rank systems, player shops, and anti-grief tools. Gained deep experience with the Spigot/Paper API, configuration management, and server optimization across many small communities."
   },
 ];
@@ -310,7 +304,7 @@ const DISCORD_USER_ID = '593013320819146753';
 const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1518829328887185550/G4ZAlxR-TOE-LcPV7hIJu8lUG6zfRJL9W_BrOe67Qvo1g70MhiaI9xy0_d0MiVKUcy1_'; 
 const toast = document.getElementById('toast');
 
-const DEMO_COOLDOWN = 60000; // 60 seconds
+const DEMO_COOLDOWN = 6000; // 60 seconds
 
 const modalOverlay = document.getElementById('demo-modal');
 const modalInput = document.getElementById('demo-input');
@@ -340,6 +334,12 @@ function openModal() {
   });
 }
 
+function showToast(message, duration = 3000) {
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), duration);
+}
+
 function sendDemo(projectName, discord) {
   fetch(DISCORD_WEBHOOK, {
     method: 'POST',
@@ -360,13 +360,12 @@ function sendDemo(projectName, discord) {
     })
   }).then(() => {
     localStorage.setItem(`demo_${projectName}`, Date.now());
-    toast.textContent = `Demo request sent for ${projectName}! I'll be in touch. Make sure to check your discord friend requests!`;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
+    showToast(`Demo request sent for ${projectName}! I'll be in touch.`);
+    setTimeout(() => {
+      showToast(`I'll add you on Discord ASAP. Make sure to check your friend requests!`, 4000);
+    }, 3500);
   }).catch(() => {
-    toast.textContent = 'Failed to send request. Try again later.';
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
+    showToast('Failed to send request. Try again later.');
   });
 }
 
