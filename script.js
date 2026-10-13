@@ -18,14 +18,31 @@ const skills = [
 ];
 
 const projects = [
-  {
-    title: "Password Manager",
-    description: "A secure password management app built with Python and Tkinter. It comes with a password generator, strength checker, and an encrypted vault to store all your credentials locally.",
-    category: "python",
-    tags: ["Python", "2026"],
-    date: "2026",
-    link: "https://github.com/VelumPrismic/PasswordManager",
-  },
+  // {
+  //   title: "Password Manager",
+  //   description: "A secure password management app built with Python and Tkinter. It comes with a password generator, strength checker, and an encrypted vault to store all your credentials locally.",
+  //   category: "python",
+  //   tags: ["Python", "2026"],
+  //   date: "2026",
+  //   link: "https://github.com/VelumPrismic/PasswordManager",
+  // },
+  // {
+  //   title: "LiteBrowse",
+  //   description: "LiteBrowse is a web-based SQLite database explorer built with FastAPI that lets users upload, browse, search, sort, and edit database files through a dark-themed browser interface.",
+  //   category: "python",
+  //   tags: ["Python", "SQLite", "2026"],
+  //   date: "2026",
+  //   link: "https://github.com/VelumPrismic/LiteBrowse"
+  // },
+  // {
+  //   title: "Block Blast Remake",
+  //   description: "A remake of the popular mobile game 'Block Blast' in Java.",
+  //   category: "java",
+  //   tags: ["Java", "2026"],
+  //   date: "2026",
+  //   link: "https://github.com/VelumPrismic/BlockBlastRemake"
+  // },
+
   {
     title: "Python Bot",
     description: "A useful Discord Bot made with Python. It's features include the standard moderation tools, auto threads, sticky messages, etc.",
@@ -34,22 +51,6 @@ const projects = [
     date: "2026",
     link: "https://github.com/VelumPrismic/DiscordBot",
     video: ""
-  },
-  {
-    title: "LiteBrowse",
-    description: "LiteBrowse is a web-based SQLite database explorer built with FastAPI that lets users upload, browse, search, sort, and edit database files through a dark-themed browser interface.",
-    category: "python",
-    tags: ["Python", "SQLite", "2026"],
-    date: "2026",
-    link: "https://github.com/VelumPrismic/LiteBrowse"
-  },
-  {
-    title: "Block Blast Remake",
-    description: "A remake of the popular mobile game 'Block Blast' in Java.",
-    category: "java",
-    tags: ["Java", "2026"],
-    date: "2026",
-    link: "https://github.com/VelumPrismic/BlockBlastRemake"
   },
   {
     title: "Random Weapons",
@@ -62,7 +63,7 @@ const projects = [
   },
   {
     title: "Cutscenes",
-    description: "A plugin to make cutscenes in Vanilla Minecraft.",
+    description: "A demo plugin to make cutscenes in Vanilla Minecraft.",
     category: "minecraft",
     tags: ["Minecraft", "Java", "Commission", "2026"],
     date: "2026",
@@ -71,12 +72,20 @@ const projects = [
   },
   {
     title: "Courier",
-    description: "A plugin that uses Discords Bot API to connect Minecraft and Discord together. It's features include linking accounts, discord slash commands and more. It has a highly customizable config.yml file to allow for a lot of different use cases.",
+    description: "A plugin that uses Discords Java Developer API to connect Minecraft and Discord together. It's features include linking accounts, discord slash commands and more. It has a highly customizable config.yml file to allow for a lot of different use cases.",
     category: "minecraft",
-    tags: ["Minecraft", "Java", "SQLite", "2025"],
-    date: "2025",
+    tags: ["Minecraft", "Java", "SQLite", "JDA", "2026"],
+    date: "2026",
     link: "https://github.com/VelumPrismic/Courier",
-    demo: true
+    video: "https://www.youtube.com/watch?v=qtBsWj-aNYY",
+  },
+  {
+    title: "Root",
+    description: "An EssentialsX replacement with an Economy API that supports multiple currencies with a highly customizable config.yml file.",
+    category: "minecraft",
+    tags: ["Minecraft", "Java", "2026"],
+    date: "2026",
+    video: "https://www.youtube.com/watch?v=qtBsWj-aNYY",
   },
 ];
 
@@ -91,7 +100,7 @@ const experience = [
     server: "CoreBreak",
     role: "Lead Developer",
     period: "2025 - 2026",
-    description: "Corebreak is a PvP Minecraft Server where I led the design and implementation of the server's foundational systems from combat mechanicss to player progression (prestige, stats, tiers, trinkets, generators), custom items, dual-currency economy, daily rewards, playtime milestones, island exploration, kill streaks, player profiles, and boosters while continuously iterating on stability and features based on playtester feedback."
+    description: "Corebreak is a PvP Minecraft Server where I led the design and implementation of the servers foundational systems from combat mechanics and quest loops to player progression (prestige, stats, tiers, trinkets, generators), custom items, dual-currency economy, daily rewards, island exploration, kill streaks, player profiles, and boosters while continuously iterating on stability and features based on playtester feedback. It has been since closed down."
   },
   {
     server: "Previous Experience",
@@ -232,7 +241,7 @@ function filterSkills() {
   let visibleCount = 0;
 
   skillCards.forEach((card, i) => {
-    const match = categoryFilter === 'all' ? card.dataset.category !== 'web' : card.dataset.category === 'web';
+    const match = categoryFilter === 'software' ? card.dataset.category !== 'web' : card.dataset.category === 'web';
     card.classList.toggle('hidden', !match);
     if (match) {
       visibleCount++;
@@ -348,7 +357,7 @@ function sendDemo(projectName, discord) {
       content: `<@${DISCORD_USER_ID}>`,
       allowed_mentions: { users: [DISCORD_USER_ID] },
       embeds: [{
-        title: `Demo Request (Plugin) — ${projectName}`,
+        title: `Demo Request (Plugin): ${projectName}`,
         color: 0xC41E3A,
         fields: [
           { name: 'Discord', value: discord, inline: true },
@@ -393,7 +402,8 @@ document.querySelectorAll('.discord-link').forEach(el => {
   el.addEventListener('click', e => {
     e.preventDefault();
     navigator.clipboard.writeText(DISCORD_USERNAME).then(() => {
-      toast.textContent = `Copied my Discord Username to clipboard (${DISCORD_USERNAME})`;
+      toast.textContent = `My discord username has been copied to your clipboard! Be sure to add me! (${DISCORD_USERNAME})`;
+      
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2500);
     });
