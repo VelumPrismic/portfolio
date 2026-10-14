@@ -22,7 +22,7 @@ const projects = [
     title: "Python Bot",
     description: "A useful Discord Bot made with Python. It's features include the standard moderation tools, auto threads, sticky messages, etc.",
     category: "python",
-    tags: ["Python", "discord.py"],
+    tags: ["Python"],
     date: "2026",
     source: "open",
     link: "https://github.com/VelumPrismic/DiscordBot",
@@ -135,7 +135,7 @@ function renderProjects() {
       <div class="card-body">
         <div class="card-header">
           <h3>${p.title}</h3>
-          ${p.source ? `<span class="source-label source-${p.source}">${p.source === 'open' ? 'Open Source' : 'Closed Source'}</span>` : ''}
+          ${p.source ? `<span class="source-label source-${p.source}"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M5 3.254V3.25v.005a.75.75 0 1 1 0-.005Zm.45 1.9a2.25 2.25 0 1 0-1.95.218v5.256a2.25 2.25 0 1 0 1.5 0V7.123A5.735 5.735 0 0 0 9.25 9h1.378a2.251 2.251 0 1 0 0-1.5H9.25a4.25 4.25 0 0 1-3.8-2.346ZM12.75 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-8.5 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"/></svg>${p.source === 'open' ? 'open source' : 'closed source'}</span>` : ''}
         </div>
         <p>${p.description}</p>
         <div class="tags">
