@@ -450,7 +450,7 @@ section {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 20px;
 }
 
@@ -508,6 +508,37 @@ section {
   line-height: 1.6;
 }
 
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.card-header h3 {
+  margin-bottom: 0;
+}
+
+.source-label {
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+}
+
+.source-open {
+  color: #4ade80;
+}
+
+.source-closed {
+  color: #d4a24e;
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -522,6 +553,40 @@ section {
   padding: 4px 12px;
   border-radius: 4px;
   border: 1px solid var(--color-border-light);
+}
+
+.tags-more {
+  position: relative;
+  cursor: default;
+  color: var(--color-text-muted-5) !important;
+}
+
+.tags-more::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--color-bg-tooltip);
+  color: var(--color-text-muted-1);
+  font-size: 0.65rem;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-medium);
+  white-space: normal;
+  max-width: 280px;
+  text-align: center;
+  line-height: 1.6;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 10;
+}
+
+.tags-more:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .card-link {
@@ -626,8 +691,6 @@ section {
 }
 
 .demo-btn {
-  align-self: flex-start;
-  margin-top: 14px;
   background: none;
   border: none;
   color: var(--color-accent);
@@ -800,6 +863,9 @@ footer {
 }
 
 @media (max-width: 700px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
   .hero-grid {
     flex-direction: column-reverse;
     text-align: center;

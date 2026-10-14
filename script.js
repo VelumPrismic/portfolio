@@ -12,44 +12,19 @@ const skills = [
   { name: "CSS", icon: "https://img.icons8.com/color/48/css3.png", category: "web" },
   { name: "Supabase", icon: "https://img.icons8.com/color/48/supabase.png", category: "web" },
   { name: "SQLite", icon: "https://img.icons8.com/ios/50/FFFFFF/sqlite.png", category: "other" },
-  // { name: "MySQL", icon: "https://img.icons8.com/color/48/mysql-logo.png", category: "data" },
   { name: "Maven", icon: "https://img.icons8.com/ios/50/FFFFFF/maven-ios.png", category: "other" },
   { name: "Skript", icon: "images/skript-logo.png", category: "other" },
   { name: "Minecraft Development", icon: "https://www.freeiconspng.com/uploads/minecraft-icon-7.png", category: "other" },
 ];
 
 const projects = [
-  // {
-  //   title: "Password Manager",
-  //   description: "A secure password management app built with Python and Tkinter. It comes with a password generator, strength checker, and an encrypted vault to store all your credentials locally.",
-  //   category: "python",
-  //   tags: ["Python", "2026"],
-  //   date: "2026",
-  //   link: "https://github.com/VelumPrismic/PasswordManager",
-  // },
-  // {
-  //   title: "LiteBrowse",
-  //   description: "LiteBrowse is a web-based SQLite database explorer built with FastAPI that lets users upload, browse, search, sort, and edit database files through a dark-themed browser interface.",
-  //   category: "python",
-  //   tags: ["Python", "SQLite", "2026"],
-  //   date: "2026",
-  //   link: "https://github.com/VelumPrismic/LiteBrowse"
-  // },
-  // {
-  //   title: "Block Blast Remake",
-  //   description: "A remake of the popular mobile game 'Block Blast' in Java.",
-  //   category: "java",
-  //   tags: ["Java", "2026"],
-  //   date: "2026",
-  //   link: "https://github.com/VelumPrismic/BlockBlastRemake"
-  // },
-
   {
     title: "Python Bot",
     description: "A useful Discord Bot made with Python. It's features include the standard moderation tools, auto threads, sticky messages, etc.",
     category: "python",
-    tags: ["Python", "2026"],
+    tags: ["Python", "discord.py"],
     date: "2026",
+    source: "open",
     link: "https://github.com/VelumPrismic/DiscordBot",
     video: ""
   },
@@ -57,8 +32,9 @@ const projects = [
     title: "Random Weapons",
     description: "An all-in-one plugin that has a couple of weapons made using Java. It's main focus is to show VFX + SFX Work.",
     category: "minecraft",
-    tags: ["Minecraft", "Java", "2026"],
+    tags: ["Minecraft", "Java"],
     date: "2026",
+    source: "closed",
     link: "",
     video: "https://www.youtube.com/watch?v=TZ7B7Exs9Nk",
   },
@@ -66,43 +42,43 @@ const projects = [
     title: "Cutscenes",
     description: "A demo plugin to make cutscenes in Vanilla Minecraft.",
     category: "minecraft",
-    tags: ["Minecraft", "Java", "Commission", "2026"],
+    tags: ["Minecraft", "Java", "Commission"],
     date: "2026",
-    link: "",
-    video: "https://www.youtube.com/watch?v=qtBsWj-aNYY",
+    source: "closed",
+    video: "https://www.youtube.com/watch?v=qtBsWj-aNYY"
   },
   {
     title: "Courier",
     description: "A plugin that uses Discords Java Developer API to connect Minecraft and Discord together. It's features include linking accounts, discord slash commands and more. It has a highly customizable config.yml file to allow for a lot of different use cases.",
     category: "minecraft",
-    tags: ["Minecraft", "Java", "SQLite", "JDA", "2026"],
+    tags: ["Minecraft", "Java", "SQLite", "JDA"],
     date: "2026",
+    source: "open",
     link: "https://github.com/VelumPrismic/Courier",
-    video: "https://www.youtube.com/watch?v=qtBsWj-aNYY",
   },
   {
     title: "Root",
     description: "An EssentialsX replacement with an Economy API that supports multiple currencies with a highly customizable config.yml file.",
     category: "minecraft",
-    tags: ["Minecraft", "Java", "2026"],
+    tags: ["Minecraft", "Java"],
     date: "2026",
-    video: "https://www.youtube.com/watch?v=qtBsWj-aNYY",
+    source: "closed",
   },
   {
     title: "Chat Core",
     description: "A chat management plugin for Minecraft servers, complete with chat colors, moderation commands, and more.",
     category: "minecraft",
-    tags: ["Minecraft", "Java", "2026"],
+    tags: ["Minecraft", "Java"],
     date: "2026",
-    video: "https://www.youtube.com/watch?v=qtBsWj-aNYY",
+    source: "closed",
   },
   {
     title: "Punishment Core",
     description: "A punishment management plugin for Minecraft servers, complete with mute, kick, ban, and more staff features.",
     category: "minecraft",
-    tags: ["Minecraft", "Java", "2026"],
+    tags: ["Minecraft", "Java"],
     date: "2026",
-    video: "https://www.youtube.com/watch?v=qtBsWj-aNYY",
+    source: "closed",
   },
 ];
 
@@ -157,16 +133,20 @@ function renderProjects() {
   grid.innerHTML = sorted.map(p => `
     <div class="project-card" data-category="${p.category}" data-year="${p.date}">
       <div class="card-body">
-        <h3>${p.title}</h3>
+        <div class="card-header">
+          <h3>${p.title}</h3>
+          ${p.source ? `<span class="source-label source-${p.source}">${p.source === 'open' ? 'Open Source' : 'Closed Source'}</span>` : ''}
+        </div>
         <p>${p.description}</p>
         <div class="tags">
-          ${p.tags.map(t => `<span>${t}</span>`).join('')}
+          ${p.tags.slice(0, 3).map(t => `<span>${t}</span>`).join('')}
+          ${p.tags.length > 3 ? `<span class="tags-more" data-tooltip="${p.tags.slice(3).join(', ')}">+${p.tags.length - 3}</span>` : ''}
         </div>
         <div class="card-links">
           ${p.link ? `<a href="${p.link}" class="card-link" target="_blank">GitHub</a>` : ''}
           ${p.video ? `<a href="${p.video}&autoplay=1" class="card-link" target="_blank">Showcase</a>` : ''}
+          ${p.demo ? `<button class="demo-btn" onclick="requestDemo('${p.title}')">Request Demo</button>` : ''}
         </div>
-        ${p.demo ? `<button class="demo-btn" onclick="requestDemo('${p.title}')">Request Demo</button>` : ''}
       </div>
     </div>
   `).join('');
