@@ -19,7 +19,7 @@ const skills = [
 
 const projects = [
   {
-    title: "Python Bot",
+    title: "Nyx",
     description: "A useful Discord Bot made with Python. It's features include the standard moderation tools, auto threads, sticky messages, etc.",
     category: "python",
     tags: ["Python"],
@@ -65,20 +65,22 @@ const projects = [
     source: "closed",
   },
   {
-    title: "Chat Core",
-    description: "A chat management plugin for Minecraft servers, complete with chat colors, moderation commands, and more.",
+    title: "Vocalis",
+    description: "Vocalis is a chat management plugin for Minecraft servers offering customizable per-player chat colors (including gradients and rainbow effects) selectable through an interactive GUI, LuckPerms prefix/suffix integration, and moderation tools such as global chat muting, slowmode, spam detection, and command-spy for staff oversight. It also features animated, auto-updating tablists, a rotating boss bar and broadcast message system, player freezing, unique-player and join/quit tracking, and persistent data storage, all configurable via config.yml and messages.yml.",
     category: "minecraft",
     tags: ["Minecraft", "Java"],
     date: "2026",
     source: "closed",
+    demo: true
   },
   {
-    title: "Punishment Core",
-    description: "A punishment management plugin for Minecraft servers, complete with mute, kick, ban, and more staff features.",
+    title: "Warden",
+    description: "A comprehensive Minecraft punishment management plugin offering ban, tempban, mute, tempmute, kick, warn, freeze, and IP-ban functionality, backed by a flexible SQLite/MySQL database with full punishment history and rollback support. It includes a regex-capable chat filter that auto-mutes players for banned phrases, alt-account detection that auto-bans ban-evaders and alerts staff of suspicious logins, a player reporting system, and in-game GUIs for punishing and managing everything. It integrates with Discord via customizable webhook embeds, includes a built-in web dashboard with live real-time updates over WebSocket, and exposes a public API for other plugins to query punishment, warning, and alt/IP data.",
     category: "minecraft",
     tags: ["Minecraft", "Java"],
     date: "2026",
     source: "closed",
+    demo: true
   },
 ];
 
