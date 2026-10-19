@@ -817,6 +817,90 @@ section {
   border-color: var(--color-accent);
 }
 
+.config-modal {
+  max-width: 780px;
+  width: 92%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.config-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 10px;
+}
+
+.config-modal-header h3 {
+  margin-bottom: 0;
+  word-break: break-word;
+}
+
+.config-modal-header .modal-btn {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+}
+
+.config-code {
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 10px;
+  padding: 16px 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  margin: 12px 0 20px;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.config-code code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  white-space: pre;
+  counter-reset: line;
+  display: block;
+  padding-right: 16px;
+}
+
+.config-code .config-line {
+  display: block;
+  position: relative;
+  padding-left: 3.4em;
+  counter-increment: line;
+}
+
+.config-code .config-line::before {
+  content: counter(line);
+  position: absolute;
+  left: 0;
+  width: 2.6em;
+  text-align: right;
+  color: var(--color-text-muted-5);
+  user-select: none;
+}
+
+.config-code .yaml-key {
+  color: var(--color-accent);
+}
+
+.config-code .yaml-colon {
+  color: var(--color-text-muted-1);
+}
+
+.config-code .yaml-value {
+  color: var(--color-text-secondary);
+}
+
+.config-code .yaml-comment {
+  color: var(--color-text-muted-5);
+  font-style: italic;
+}
+
 #toast {
   position: fixed;
   bottom: 24px;
@@ -900,6 +984,7 @@ footer {
 
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-scrollbar-track);
@@ -910,6 +995,14 @@ footer {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-scrollbar-thumb-hover);
+}
+::-webkit-scrollbar-corner {
+  background: var(--color-scrollbar-track);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
 }
 
 @keyframes blink {

@@ -1,0 +1,439 @@
+database:
+  # Storage type: "sqlite" or "mysql"
+  type: sqlite
+
+  # SQLite settings (used when type is sqlite)
+  sqlite:
+    file: data.db
+
+  # MySQL settings (used when type is mysql)
+  mysql:
+    host: localhost
+    port: 3306
+    database: warden
+    username: root
+    password: ""
+    # Extra JDBC connection parameters (e.g. useSSL=false&serverTimezone=UTC)
+    parameters: useSSL=false&serverTimezone=UTC
+
+# ──────────────────────────────────────────────────────────
+# Mute - Blocked Commands
+# ──────────────────────────────────────────────────────────
+# Prevents muted players from running certain commands.
+# Commands are matched by their base name (without arguments or leading "/").
+# Aliases are matched automatically (e.g. "msg" also blocks "tell", "w").
+# ──────────────────────────────────────────────────────────
+mute:
+  blocked-commands:
+    # Master toggle for blocking commands while muted
+    enabled: true
+    # Players with this permission won't be restricted
+    bypass-permission: warden.bypass.mute
+    # Commands that muted players cannot use (without leading "/")
+    commands:
+      - "msg"
+      - "tell"
+      - "w"
+      - "r"
+      - "reply"
+      - "me"
+      - "say"
+      - "broadcast"
+      - "shout"
+      - "party"
+      - "pc"
+      - "g"
+      - "t"
+
+report:
+  cooldown: 60
+
+# ──────────────────────────────────────────────────────────
+# Punishment Cooldowns
+# ──────────────────────────────────────────────────────────
+# Prevents staff from spamming punishments. Each cooldown is
+# per-staff and per-punishment-type (e.g. a mod who just warned
+# someone must wait before warning again, but can still ban).
+#
+# Durations are in SECONDS. Set to 0 to disable a specific type.
+# Set "enabled: false" to disable ALL cooldowns.
+# Players with the bypass-permission are exempt (e.g. admins).
+#
+# Ranks: higher weight = higher priority. The plugin picks the
+# highest-weight rank the player has permission for. If a player
+# matches no rank, they have no cooldown (free to punish).
+# ──────────────────────────────────────────────────────────
+cooldowns:
+  # Master toggle — set to false to disable cooldowns entirely
+  enabled: true
+  # Players with this permission skip ALL cooldowns
+  bypass-permission: warden.admin
+
+  ranks:
+    helper:
+      permission: warden.cooldown.helper
+      weight: 1
+      durations:
+        warn: 60
+        kick: 60
+        mute: 60
+        tempmute: 60
+        ban: 60
+        tempban: 60
+
+    moderator:
+      permission: warden.cooldown.moderator
+      weight: 2
+      durations:
+        warn: 30
+        kick: 30
+        mute: 30
+        tempmute: 30
+        ban: 30
+        tempban: 30
+
+    senior-moderator:
+      permission: warden.cooldown.senior-moderator
+      weight: 3
+      durations:
+        warn: 15
+        kick: 15
+        mute: 15
+        tempmute: 15
+        ban: 15
+        tempban: 15
+
+# ──────────────────────────────────────────────────────────
+# Duration Limits
+# ──────────────────────────────────────────────────────────
+# Restricts how long temp bans and temp mutes can last based
+# on staff rank. Higher-weight ranks get higher limits.
+#
+# The plugin picks the highest-weight rank the player has
+# permission for. If a player matches no rank, they have no
+# limit (can temp-ban/mute for any duration).
+#
+# Durations use the same format as commands: "1d", "12h", etc.
+# Set to "permanent" for no limit (the rank can temp-ban/mute
+# for any duration).
+# Set "enabled: false" to disable limits entirely.
+# Players with the bypass-permission are exempt.
+# ──────────────────────────────────────────────────────────
+duration-limits:
+  # Master toggle — set to false to disable duration limits entirely
+  enabled: true
+  # Players with this permission skip ALL duration limits
+  bypass-permission: warden.admin
+
+  ranks:
+    helper:
+      permission: warden.limit.helper
+      weight: 1
+      limits:
+        tempban: 1d
+        tempmute: 1d
+
+    moderator:
+      permission: warden.limit.moderator
+      weight: 2
+      limits:
+        tempban: 30d
+        tempmute: 30d
+
+
+sounds:
+  staff:
+    punishment-issued: BLOCK_NOTE_BLOCK_PLING
+    player-kicked: BLOCK_NOTE_BLOCK_PLING
+    warning-issued: BLOCK_NOTE_BLOCK_PLING
+    join-alert: BLOCK_NOTE_BLOCK_PLING
+
+  player:
+    muted: BLOCK_NOTE_BLOCK_BASS
+    warned: BLOCK_NOTE_BLOCK_BELL
+    banned: ENTITY_WITHER_DEATH
+
+# ──────────────────────────────────────────────────────────
+# Discord Webhook Integration
+# ──────────────────────────────────────────────────────────
+# Sends rich embed notifications to a Discord channel whenever
+# a punishment is issued, revoked, or a report is filed.
+#
+# Setup:
+#   1. Go to your Discord server settings → Integrations → Webhooks
+#   2. Create a webhook, copy the URL
+#   3. Paste it in default-webhook below (or per-type under webhooks)
+#   4. Set enabled to true
+#   5. Run /pc reload
+#
+# Per-type webhooks override default-webhook.
+# Set a type to 'on' to use default-webhook, or 'off' to disable it.
+# ──────────────────────────────────────────────────────────
+discord:
+  enabled: false
+  default-webhook: ''
+  # If false, silent punishments (-s flag) will NOT be sent to Discord
+  send-silent: false
+
+  webhooks:
+    ban: ''
+    tempban: ''
+    mute: ''
+    tempmute: ''
+    warn: ''
+    kick: ''
+    unban: ''
+    unmute: ''
+    report: ''
+    report-resolved: ''
+
+  # Embed customization per event type.
+  # Available placeholders: {target} {staff} {reason} {duration} {date}
+  # For reports: also {reporter}
+  # thumbnail: true = auto player head (mc-heads.net), or a custom URL, or false
+  # For custom URLs, use {target} placeholder for the player name, e.g.:
+  #   thumbnail: "https://mc-heads.net/avatar/{target}/100"
+  embeds:
+    ban:
+      title: "Player Banned"
+      description: "**{target}** has been permanently banned."
+      color: "#FF0000"
+      thumbnail: true
+      timestamp: true
+      fields:
+        - name: "Staff"
+          value: "{staff}"
+          inline: true
+        - name: "Reason"
+          value: "{reason}"
+          inline: false
+
+    tempban:
+      title: "Player Temp-Banned"
+      description: "**{target}** has been temporarily banned."
+      color: "#FF8C00"
+      thumbnail: true
+      timestamp: true
+      fields:
+        - name: "Duration"
+          value: "{duration}"
+          inline: true
+        - name: "Staff"
+          value: "{staff}"
+          inline: true
+        - name: "Reason"
+          value: "{reason}"
+          inline: false
+
+    mute:
+      title: "Player Muted"
+      description: "**{target}** has been permanently muted."
+      color: "#FF0000"
+      thumbnail: true
+      timestamp: true
+      fields:
+        - name: "Staff"
+          value: "{staff}"
+          inline: true
+        - name: "Reason"
+          value: "{reason}"
+          inline: false
+
+    tempmute:
+      title: "Player Temp-Muted"
+      description: "**{target}** has been temporarily muted."
+      color: "#FF8C00"
+      thumbnail: true
+      timestamp: true
+      fields:
+        - name: "Duration"
+          value: "{duration}"
+          inline: true
+        - name: "Staff"
+          value: "{staff}"
+          inline: true
+        - name: "Reason"
+          value: "{reason}"
+          inline: false
+
+    warn:
+      title: "Player Warned"
+      description: "**{target}** has been warned."
+      color: "#FFFF00"
+      thumbnail: true
+      timestamp: true
+      fields:
+        - name: "Staff"
+          value: "{staff}"
+          inline: true
+        - name: "Reason"
+          value: "{reason}"
+          inline: false
+
+    kick:
+      title: "Player Kicked"
+      description: "**{target}** has been kicked."
+      color: "#FF4500"
+      thumbnail: true
+      timestamp: true
+      fields:
+        - name: "Staff"
+          value: "{staff}"
+          inline: true
+        - name: "Reason"
+          value: "{reason}"
+          inline: false
+
+    unban:
+      title: "Player Unbanned"
+      description: "**{target}** has been unbanned."
+      color: "#00FF00"
+      thumbnail: true
+      timestamp: true
+      fields:
+        - name: "Staff"
+          value: "{staff}"
+          inline: true
+
+    unmute:
+      title: "Player Unmuted"
+      description: "**{target}** has been unmuted."
+      color: "#00FF00"
+      thumbnail: true
+      timestamp: true
+      fields:
+        - name: "Staff"
+          value: "{staff}"
+          inline: true
+
+    report:
+      title: "Player Reported"
+      description: "**{target}** has been reported."
+      color: "#FFA500"
+      thumbnail: true
+      timestamp: true
+      fields:
+        - name: "Reporter"
+          value: "{reporter}"
+          inline: true
+        - name: "Reason"
+          value: "{reason}"
+          inline: false
+
+    report-resolved:
+      title: "Report Resolved"
+      description: "Report against **{target}** has been resolved."
+      color: "#00FF00"
+      thumbnail: true
+      timestamp: true
+      fields:
+        - name: "Reporter"
+          value: "{reporter}"
+          inline: true
+        - name: "Resolved By"
+          value: "{staff}"
+          inline: true
+        - name: "Reason"
+          value: "{reason}"
+          inline: false
+
+# ──────────────────────────────────────────────────────────
+# Alt Detection
+# ──────────────────────────────────────────────────────────
+# Tracks player IP addresses and automatically bans players
+# who join from the same IP as a currently banned account.
+#
+# The /alts command uses this data to show a player's known
+# alt accounts. The /ipban command bans an IP directly.
+# ──────────────────────────────────────────────────────────
+alt-detection:
+  # Master toggle for automatic alt-ban detection
+  enabled: true
+  # Reason shown on the auto-ban punishment record
+  reason: "Ban Evading"
+  # Name shown as the "staff member" on auto-issued bans
+  staff-name: "Alt Detection"
+  # If true, broadcasts the auto-ban in-game
+  broadcast: true
+  # If true, sends the auto-ban to Discord (requires discord.enabled)
+  send-discord: true
+  # If true, alerts staff when two unpunished players join from the same IP
+  alert-staff: true
+
+# ──────────────────────────────────────────────────────────
+# Join Notification
+# ──────────────────────────────────────────────────────────
+# Alerts online staff members when a player with active
+# punishments (ban, tempban, mute, tempmute, warn) joins.
+# If the player has no active punishments, no alert is sent.
+join-notification:
+  # Master toggle for join punishment notifications
+  enabled: true
+
+# ──────────────────────────────────────────────────────────
+# Chat Filter
+# ──────────────────────────────────────────────────────────
+# Automatically mutes players who send filtered words/phrases.
+# The message is cancelled instantly and never reaches other players.
+#
+# Each rule has a severity (higher = more severe). When a message
+# matches multiple rules, the highest-severity rule wins.
+#
+# Rule fields:
+#   name:      Display name for the rule
+#   severity:  Integer severity level (higher = worse)
+#   type:      MUTE (permanent) or TEMPMUTE (temporary)
+#   duration:  Duration for TEMPMUTE (e.g. "30d", "1h", "10m"). Ignored for MUTE.
+#   reason:    Reason shown in the punishment record
+#   regex:     true = patterns are regex, false = patterns are literal substrings (default: false)
+#   patterns:  List of words/phrases to match (case-insensitive)
+# ──────────────────────────────────────────────────────────
+chat-filter:
+  # Master toggle for the entire chat filter system
+  enabled: false
+  # Players with this permission won't be filtered
+  bypass-permission: warden.bypass.chatfilter
+  # Name shown as the "staff member" on auto-issued mutes and in Discord embeds
+  staff-name: "Chat Filter"
+  # If true, broadcasts the auto-mute in-game (same as manual mutes)
+  broadcast: true
+  # If true, sends the auto-mute to Discord (requires discord.enabled above)
+  send-discord: true
+
+  rules:
+    - name: "Example Rule"
+      severity: 3
+      type: TEMPMUTE
+      duration: "7d"
+      reason: "Unlucky enough to trip the Example Rule."
+      regex: false
+      patterns:
+        - "example-rule-1"
+        - "example-rule-2"
+
+# ──────────────────────────────────────────────────────────
+# Web Integration
+# ──────────────────────────────────────────────────────────
+# Embeds an HTTP + WebSocket server inside the plugin.
+# The web dashboard is served at http://localhost:<port>/
+#
+# REST API endpoints (all under /api/):
+#   GET /api/status               — server info + online players
+#   GET /api/punishments/<id>     — all punishments for a player (by name or UUID)
+#   GET /api/punishments/<id>/active — active punishments only
+#   GET /api/staff/<name>         — punishment actions by staff member
+#   GET /api/reports              — all reports
+#   GET /api/reports/unresolved   — unresolved reports only
+#
+# WebSocket:
+#   ws://localhost:<port>/ws      — real-time push of punishment/report events
+#
+# Security:
+#   If api-key is set (non-empty), all /api/ requests must include
+#   "Authorization: Bearer <key>" header, and WebSocket must connect
+#   with ?key=<key> query parameter. Leave empty for no auth (local dev).
+# ──────────────────────────────────────────────────────────
+web:
+  enabled: false
+  port: 8080
+  api-key: ""

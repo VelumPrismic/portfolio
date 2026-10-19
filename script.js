@@ -25,7 +25,7 @@ const projects = [
     tags: ["Python"],
     date: "2026",
     source: "open",
-    link: "https://github.com/VelumPrismic/DiscordBot",
+    link: "https://github.com/VelumPrismic/Nyx",
     video: ""
   },
   {
@@ -51,10 +51,10 @@ const projects = [
     title: "Courier",
     description: "A plugin that uses Discords Java Developer API to connect Minecraft and Discord together. It's features include linking accounts, discord slash commands and more. It has a highly customizable config.yml file to allow for a lot of different use cases.",
     category: "minecraft",
-    tags: ["Minecraft", "Java", "SQLite", "JDA"],
+    tags: ["Minecraft", "Java", "SQLite", "Commission", "JDA"],
     date: "2026",
-    source: "open",
-    link: "https://github.com/VelumPrismic/Courier",
+    video: "",
+    source: "closed",
   },
   {
     title: "Root",
@@ -63,15 +63,17 @@ const projects = [
     tags: ["Minecraft", "Java"],
     date: "2026",
     source: "closed",
+    demo: true
   },
   {
     title: "Vocalis",
-    description: "Vocalis is a chat management plugin for Minecraft servers offering customizable per-player chat colors (including gradients and rainbow effects) selectable through an interactive GUI, LuckPerms prefix/suffix integration, and moderation tools such as global chat muting, slowmode, spam detection, and command-spy for staff oversight. It also features animated, auto-updating tablists, a rotating boss bar and broadcast message system, player freezing, unique-player and join/quit tracking, and persistent data storage, all configurable via config.yml and messages.yml.",
+    description: "Vocalis is a chat management plugin for Minecraft servers offering customizable per-player chat colors (including gradients and rainbow effects) selectable through an interactive GUI, LuckPerms prefix/suffix integration, and moderation tools such as global chat muting, slowmode, spam detection, and command-spy for staff oversight. It also features animated, auto-updating tablists, a rotating boss bar and broadcast message system, unique-player and join/quit tracking, and persistent data storage, all configurable via config.yml and messages.yml.",
     category: "minecraft",
     tags: ["Minecraft", "Java"],
     date: "2026",
     source: "closed",
-    demo: true
+    demo: true,
+    // configFile: "configs/vocalis.yml"
   },
   {
     title: "Warden",
@@ -80,7 +82,8 @@ const projects = [
     tags: ["Minecraft", "Java"],
     date: "2026",
     source: "closed",
-    demo: true
+    demo: true,
+    configFile: "configs/warden.yml"
   },
 ];
 
@@ -147,6 +150,7 @@ function renderProjects() {
         <div class="card-links">
           ${p.link ? `<a href="${p.link}" class="card-link" target="_blank">GitHub</a>` : ''}
           ${p.video ? `<a href="${p.video}&autoplay=1" class="card-link" target="_blank">Showcase</a>` : ''}
+          ${p.configFile ? `<button class="demo-btn" onclick="showConfig('${p.title}')">View Example Config</button>` : ''}
           ${p.demo ? `<button class="demo-btn" onclick="requestDemo('${p.title}')">Request Demo</button>` : ''}
         </div>
       </div>
@@ -322,11 +326,13 @@ const modalCancel = document.getElementById('demo-cancel');
 function openModal() {
   return new Promise(resolve => {
     modalOverlay.classList.add('open');
+    lockScroll(true);
     modalInput.value = '';
     modalInput.focus();
 
     function close(value) {
       modalOverlay.classList.remove('open');
+      lockScroll(false);
       resolve(value);
     }
 
@@ -341,6 +347,90 @@ function openModal() {
     };
   });
 }
+
+const configModalOverlay = document.getElementById('config-modal');
+const configModalTitle = document.getElementById('config-modal-title');
+const configModalCode = document.getElementById('config-modal-code');
+const configModalClose = document.getElementById('config-close');
+const configModalCopy = document.getElementById('config-copy');
+
+function escapeHtml(str) {
+  return str.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+}
+
+function highlightYaml(yaml) {
+  return escapeHtml(yaml).split('\n').map(line => {
+    let content;
+    if (/^\s*#/.test(line)) {
+      content = `<span class="yaml-comment">${line}</span>`;
+    } else {
+      const match = line.match(/^(\s*(?:- )?)([\w.-]+)(:)(.*)$/);
+      if (match) {
+        const [, indent, key, colon, rest] = match;
+        content = `${indent}<span class="yaml-key">${key}</span><span class="yaml-colon">${colon}</span><span class="yaml-value">${rest}</span>`;
+      } else {
+        content = line;
+      }
+    }
+    return `<span class="config-line">${content || ' '}</span>`;
+  }).join('\n');
+}
+
+function lockScroll(lock) {
+  document.body.style.overflow = lock ? 'hidden' : '';
+}
+
+const configCache = {};
+let activeConfigText = '';
+
+function showConfig(projectName) {
+  const project = projects.find(p => p.title === projectName);
+  if (!project || !project.configFile) return;
+
+  configModalTitle.textContent = `${project.title} — ${project.configFile.split('/').pop()}`;
+  configModalOverlay.classList.add('open');
+  lockScroll(true);
+
+  if (configCache[project.configFile]) {
+    activeConfigText = configCache[project.configFile];
+    configModalCode.innerHTML = highlightYaml(activeConfigText);
+    return;
+  }
+
+  configModalCode.textContent = 'Loading...';
+  fetch(project.configFile)
+    .then(res => {
+      if (!res.ok) throw new Error('not found');
+      return res.text();
+    })
+    .then(text => {
+      configCache[project.configFile] = text;
+      activeConfigText = text;
+      configModalCode.innerHTML = highlightYaml(text);
+    })
+    .catch(() => {
+      configModalCode.textContent = 'Failed to load config.';
+    });
+}
+
+function closeConfig() {
+  configModalOverlay.classList.remove('open');
+  lockScroll(false);
+}
+
+configModalClose.addEventListener('click', closeConfig);
+configModalOverlay.addEventListener('click', e => {
+  if (e.target === configModalOverlay) closeConfig();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && configModalOverlay.classList.contains('open')) closeConfig();
+});
+configModalCopy.addEventListener('click', () => {
+  if (!activeConfigText) return;
+  navigator.clipboard.writeText(activeConfigText).then(() => {
+    showToast('Config copied to clipboard!');
+  });
+});
 
 function showToast(message, duration = 3000) {
   toast.textContent = message;
